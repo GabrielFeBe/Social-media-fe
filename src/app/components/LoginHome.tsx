@@ -2,8 +2,10 @@
 import { api } from '@/lib/api'
 import React, { FormEvent } from 'react'
 import Cookie from 'js-cookie'
+import { useRouter } from 'next/navigation'
 
 export default function LoginHome() {
+  const router = useRouter()
   async function submitLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
@@ -14,6 +16,7 @@ export default function LoginHome() {
       })
       const { token } = response.data
       Cookie.set('token', token)
+      router.refresh()
     } catch (err) {
       console.log('deu errado')
     }
@@ -28,6 +31,7 @@ export default function LoginHome() {
       >
         Entrar
       </button>
+      <button onClick={() => router.push('/register')}>Criar nova conta</button>
     </form>
   )
 }
