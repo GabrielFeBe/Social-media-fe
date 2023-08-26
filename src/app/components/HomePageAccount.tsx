@@ -5,6 +5,7 @@ import { api } from '@/lib/api'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 // import Image from 'next/image'
 import Link from 'next/link'
+import { ButtonFriendRequest } from './ButtonFriendRequest'
 
 interface Props {
   token: UserIDJwtPayload
@@ -14,8 +15,16 @@ export default async function HomePageAccount({ token }: Props) {
   const user: UserFriend = responseU.data
   const responseP = await api.get('/posts')
   const posts: Posts[] = responseP.data || []
+  const responseF = await api.get('/friends')
+  const friendsToRequest: UserFriend[] = responseF.data || []
+  const toRequest = friendsToRequest.filter((friend) => {
+    if (friend.id === token.id) return false
+
+    if (friend.friends.length === 0) return true
+    return !friend.friends.some((fr) => fr.id === token.id)
+  })
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-3">
       <aside>
         {/* Profile */}
         {/* <Image src={ user}
@@ -59,6 +68,20 @@ export default async function HomePageAccount({ token }: Props) {
           </div>
         )
       })}
+      <aside>
+        <h2>Ppl dat u may know</h2>
+        {toRequest.map((person) => {
+          return (
+            <>
+              <Link href={`/profile/${person.id}`}>{person.name}</Link>
+              <ButtonFriendRequest
+                requesterId={token.id}
+                targetId={person.id as number}
+              />
+            </>
+          )
+        })}
+      </aside>
     </div>
   )
 }
