@@ -53,23 +53,25 @@ export default async function HomePageAccount({ token }: Props) {
       </aside>
 
       {/* posts */}
-      {posts.map((post) => {
-        return (
-          <div key={post.id}>
-            {/* person profile */}
-            <div>
-              {/* prof picture */}
-              {/* name */}
-              <Link href={`/profile/${post.user.id}`}>{post.user.name}</Link>
+      <section>
+        {posts.map((post) => {
+          return (
+            <div key={post.id}>
+              {/* person profile */}
+              <div>
+                {/* prof picture */}
+                {/* name */}
+                <Link href={`/profile/${post.user.id}`}>{post.user.name}</Link>
+              </div>
+              {/* actual post */}
+              <div>
+                <h3>{post.postTitle}</h3>
+                <p>{post.postDescription}</p>
+              </div>
             </div>
-            {/* actual post */}
-            <div>
-              <h3>{post.postTitle}</h3>
-              <p>{post.postDescription}</p>
-            </div>
-          </div>
-        )
-      })}
+          )
+        })}
+      </section>
       <aside>
         <h2>Ppl dat u may know</h2>
         {toRequest.map((person) => {
