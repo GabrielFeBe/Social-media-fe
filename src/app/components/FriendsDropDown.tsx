@@ -3,12 +3,13 @@ import React, { ReactNode, useEffect, useRef, useState } from 'react'
 
 interface Props {
   children: ReactNode
+  title: string
 }
 
-export default function FriendsDropDown({ children }: Props) {
+export default function FriendsDropDown({ children, title }: Props) {
   const [isVisible, setIsVisible] = useState(false)
 
-  const botaoRef = useRef<HTMLButtonElement>(null)
+  const botaoRef = useRef<HTMLButtonElement & HTMLDivElement>(null)
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -28,9 +29,9 @@ export default function FriendsDropDown({ children }: Props) {
   }, [])
 
   return (
-    <div className="relative bg-white">
+    <div ref={botaoRef} className="relative bg-white">
       <button ref={botaoRef} onClick={() => setIsVisible(!isVisible)}>
-        Friends
+        {title}
       </button>
       {isVisible ? <div className="absolute bg-white">{children}</div> : null}
     </div>

@@ -29,8 +29,8 @@ export default async function FriendsRequest({ token }: Props) {
   const responseUF: Requested = await api.get(`/user/${token.id}`)
   const requesteds = responseUF.data.user.requested || []
   return (
-    <nav>
-      <FriendsDropDown>
+    <nav className="flex justify-end gap-4">
+      <FriendsDropDown title="Friends">
         {requesteds.map((request) => {
           const { id } = request.friendRequest
           return (
@@ -40,6 +40,9 @@ export default async function FriendsRequest({ token }: Props) {
             </div>
           )
         })}
+      </FriendsDropDown>
+      <FriendsDropDown title="Info">
+        <a href="/api/auth/logout">Logout</a>
       </FriendsDropDown>
     </nav>
   )
