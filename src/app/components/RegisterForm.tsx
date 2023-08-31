@@ -5,6 +5,12 @@ import { FormEvent } from 'react'
 // import Cookie from 'js-cookie'
 import { api } from '@/lib/api'
 import { useRouter } from 'next/navigation'
+import UserFriend from '@/interfaces/Friend'
+import Cookies from 'js-cookie'
+
+interface userCreated {
+  userCreated: Partial<UserFriend>
+}
 
 export default function RegisterForm() {
   const router = useRouter()
@@ -16,7 +22,7 @@ export default function RegisterForm() {
     // if(imageUpload){
     // Logica de upload de imagem como ainda não foi feito a rota de imagem no backend não fiz a logica
     // }
-    await api.post('/user', {
+    const response = await api.post('/user', {
       email: makeForm.get('email'),
       password: makeForm.get('password'),
       name: makeForm.get('nameAndLastname'),
@@ -24,6 +30,8 @@ export default function RegisterForm() {
       profilePicture: 'nothingHereTN.jpg',
       local: makeForm.get('local'),
     })
+    const user: userCreated = response.data
+    Cookies.set('token', user.userCreated.token as string)
     router.push('/')
   }
 

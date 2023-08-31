@@ -12,5 +12,6 @@ export default interface UserFriend {
   description: string
   profilePicture: string
   local: string
+  token?: string
   friends: Friends[]
 }
