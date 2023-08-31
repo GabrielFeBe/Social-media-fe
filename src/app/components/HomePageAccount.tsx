@@ -9,14 +9,27 @@ import { ButtonFriendRequest } from './ButtonFriendRequest'
 
 interface Props {
   token: UserIDJwtPayload
+  tokenString: string
 }
 
-export default async function HomePageAccount({ token }: Props) {
-  const responseU = await api.get(`/friends/${token.id}`)
+export default async function HomePageAccount({ token, tokenString }: Props) {
+  const responseU = await api.get(`/friends/${token.id}`, {
+    headers: {
+      Authorization: tokenString,
+    },
+  })
   const user: UserFriend = responseU.data
-  const responseP = await api.get('/posts')
+  const responseP = await api.get('/posts', {
+    headers: {
+      Authorization: tokenString,
+    },
+  })
   const posts: Posts[] = responseP.data || []
-  const responseF = await api.get('/friends')
+  const responseF = await api.get('/friends', {
+    headers: {
+      Authorization: tokenString,
+    },
+  })
   const friendsToRequest: UserFriend[] = responseF.data || []
 
   const toRequest = friendsToRequest.filter((friend) => {

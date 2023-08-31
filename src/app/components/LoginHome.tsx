@@ -18,7 +18,7 @@ export default function LoginHome() {
       Cookie.set('token', token)
       router.refresh()
     } catch (err) {
-      console.log('deu errado')
+      console.log(err)
     }
   }
   return (
