@@ -24,7 +24,7 @@ export default function LoginHome() {
   return (
     <form className=" flex flex-col w-[300px]" onSubmit={submitLogin}>
       <input type="text" placeholder="Email" name="email" />
-      <input type="text" placeholder="Senha" name="password" />
+      <input type="password" placeholder="Password" name="password" />
       <button
         className="rounded-full bg-black text-gray-200 w-full"
         type="submit"
