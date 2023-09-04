@@ -94,6 +94,7 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
               <ButtonFriendRequest
                 requesterId={token.id}
                 targetId={person.id as number}
+                tokenString={tokenString}
               />
             </>
           )

@@ -16,8 +16,10 @@ export default async function Home() {
   return (
     <>
       <header>
-        {/* @ts-expect-error next new feature */}
-        {token ? <FriendsRequest token={token} /> : null}
+        {token ? (
+          // @ts-expect-error next new feature
+          <FriendsRequest token={token} tokenString={stringToken} />
+        ) : null}
       </header>
       <main className="min-h-screen w-full flex flex-1 bg-gray-400 justify-center items-baseline">
         {token ? (

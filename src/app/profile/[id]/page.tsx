@@ -48,17 +48,16 @@ export default async function profile({ params }: { params: { id: string } }) {
   })
   const posts: Posts[] = responseP.data
   const user: User = responseU.data.user
-  console.log(user)
 
   return (
-    <main className="grid grid-cols-2">
-      <div className="w-[500px]">
+    <main className="grid grid-cols-3 gap-5">
+      <div className="">
         <img src={user.profilePicture} alt="foto" />
         <p>{user.name}</p>
         <span>{user.description}</span>
         <p>{user.local}</p>
       </div>
-      <article className="w-full">
+      <article className="w-full col-span-2">
         <h1>Time Line</h1>
         {posts.map((post) => {
           return (
