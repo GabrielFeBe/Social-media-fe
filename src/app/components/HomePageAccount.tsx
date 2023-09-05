@@ -6,6 +6,7 @@ import { UserIDJwtPayload } from 'jsonwebtoken'
 // import Image from 'next/image'
 import Link from 'next/link'
 import { ButtonFriendRequest } from './ButtonFriendRequest'
+import Comment from './Comment'
 
 interface Props {
   token: UserIDJwtPayload
@@ -19,6 +20,7 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
     },
   })
   const user: UserFriend = responseU.data
+  console.log(user)
   const responseP = await api.get('/posts', {
     headers: {
       Authorization: tokenString,
@@ -69,7 +71,7 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
       <section>
         {posts.map((post) => {
           return (
-            <div key={post.id}>
+            <div key={post.id} className="border border-red-600">
               {/* person profile */}
               <div>
                 {/* prof picture */}
@@ -81,6 +83,25 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
                 <h3>{post.postTitle}</h3>
                 <p>{post.postDescription}</p>
               </div>
+              {/* Comments */}
+              {post.comments.map((comment) => {
+                return (
+                  <div key={comment.comment}>
+                    {/* eslint-disable-next-line */}
+                    <img
+                      src={comment.user.profilePicture}
+                      alt="Pesssoa que comentou"
+                    />
+                    <h3>{comment.user.name}</h3>
+                    <span>{comment.comment}</span>
+                  </div>
+                )
+              })}
+              <Comment
+                id={post.id as number}
+                tokenString={tokenString}
+                userId={user.id as number}
+              ></Comment>
             </div>
           )
         })}
