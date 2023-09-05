@@ -1,3 +1,4 @@
+import PostComments from './Comments'
 import { Friends } from './Friend'
 
 export interface Posts {
@@ -8,4 +9,5 @@ export interface Posts {
   isPublic: boolean
   userId: number
   user: Friends
+  comments: PostComments[]
 }

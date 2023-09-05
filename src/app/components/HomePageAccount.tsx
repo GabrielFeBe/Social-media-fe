@@ -31,7 +31,7 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
     },
   })
   const friendsToRequest: UserFriend[] = responseF.data || []
-
+  console.log(posts[0].comments)
   const toRequest = friendsToRequest.filter((friend) => {
     if (friend.id === token.id) return false
 
