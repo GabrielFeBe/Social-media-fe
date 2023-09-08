@@ -6,9 +6,17 @@ interface Props {
   id: number
   userId: number
   tokenString: string
+  setUpdate: (update: boolean) => void
+  update: boolean
 }
 
-export default function Comment({ id, userId, tokenString }: Props) {
+export default function Comment({
+  id,
+  userId,
+  tokenString,
+  setUpdate,
+  update,
+}: Props) {
   const [comment, setComment] = useState('')
   async function makeComment() {
     try {
@@ -25,6 +33,7 @@ export default function Comment({ id, userId, tokenString }: Props) {
           },
         },
       )
+      setUpdate(!update)
     } catch (err) {
       return null
     } finally {

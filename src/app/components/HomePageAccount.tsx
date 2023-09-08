@@ -1,12 +1,11 @@
 'use server'
 import UserFriend from '@/interfaces/Friend'
-import { Posts } from '@/interfaces/Posts'
 import { api } from '@/lib/api'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 // import Image from 'next/image'
 import Link from 'next/link'
 import { ButtonFriendRequest } from './ButtonFriendRequest'
-import Comment from './Comment'
+import PostSection from './PostSection'
 
 interface Props {
   token: UserIDJwtPayload
@@ -20,20 +19,13 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
     },
   })
   const user: UserFriend = responseU.data
-  console.log(user)
-  const responseP = await api.get('/posts', {
-    headers: {
-      Authorization: tokenString,
-    },
-  })
-  const posts: Posts[] = responseP.data || []
+
   const responseF = await api.get('/friends', {
     headers: {
       Authorization: tokenString,
     },
   })
   const friendsToRequest: UserFriend[] = responseF.data || []
-  console.log(posts[0].comments)
   const toRequest = friendsToRequest.filter((friend) => {
     if (friend.id === token.id) return false
 
@@ -69,42 +61,7 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
 
       {/* posts */}
       <section>
-        {posts.map((post) => {
-          return (
-            <div key={post.id} className="border border-red-600">
-              {/* person profile */}
-              <div>
-                {/* prof picture */}
-                {/* name */}
-                <Link href={`/profile/${post.user.id}`}>{post.user.name}</Link>
-              </div>
-              {/* actual post */}
-              <div>
-                <h3>{post.postTitle}</h3>
-                <p>{post.postDescription}</p>
-              </div>
-              {/* Comments */}
-              {post.comments.map((comment) => {
-                return (
-                  <div key={comment.comment}>
-                    {/* eslint-disable-next-line */}
-                    <img
-                      src={comment.user.profilePicture}
-                      alt="Pesssoa que comentou"
-                    />
-                    <h3>{comment.user.name}</h3>
-                    <span>{comment.comment}</span>
-                  </div>
-                )
-              })}
-              <Comment
-                id={post.id as number}
-                tokenString={tokenString}
-                userId={user.id as number}
-              ></Comment>
-            </div>
-          )
-        })}
+        <PostSection token={token} tokenString={tokenString} />
       </section>
       <aside>
         <h2>Ppl dat u may know</h2>
