@@ -5,6 +5,7 @@ import Comment from './Comment'
 import Link from 'next/link'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { api } from '@/lib/api'
+import PersonBlock from './PersonBlock'
 
 interface Props {
   tokenString: string
@@ -55,6 +56,11 @@ export default function PostSection({ tokenString, token }: Props) {
               <div>
                 {/* prof picture */}
                 {/* name */}
+                <PersonBlock
+                  image={post.user.profilePicture}
+                  name={post.user.name}
+                  timePost={post.postDate as Date}
+                ></PersonBlock>
                 <Link href={`/profile/${post.user.id}`}>{post.user.name}</Link>
               </div>
               {/* actual post */}
