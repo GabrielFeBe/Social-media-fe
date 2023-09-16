@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { api } from '@/lib/api'
 import PersonBlock from './PersonBlock'
+import CommentPerson from './CommentPerson'
 
 interface Props {
   tokenString: string
@@ -73,12 +74,12 @@ export default function PostSection({ tokenString, token }: Props) {
                 return (
                   <div key={comment.comment}>
                     {/* eslint-disable-next-line */}
-                    <img
-                      src={comment.user.profilePicture}
-                      alt="Pesssoa que comentou"
-                    />
-                    <h3>{comment.user.name}</h3>
-                    <span>{comment.comment}</span>
+                   <CommentPerson comment={comment.comment}
+                      image={comment.user.profilePicture}
+                      name={comment.user.name}
+                      timePost={comment.commentDate}
+                      id={comment.user.id as number}
+                    ></CommentPerson>
                   </div>
                 )
               })}
