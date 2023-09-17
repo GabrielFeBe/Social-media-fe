@@ -1,5 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs'
+dayjs.extend(relativeTime)
 
 interface Props {
   image: string
@@ -37,7 +40,9 @@ export default function CommentPerson({
           </span>
         </div>
         <ul>
-          <li className="text-xs font-light pl-3 pt-1">5h ago</li>
+          <li className="text-xs font-light pl-3 pt-1">
+            {`${dayjs().from(dayjs(timePost), true)} ago`}
+          </li>
         </ul>
       </div>
     </div>

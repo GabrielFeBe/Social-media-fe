@@ -1,12 +1,26 @@
 'use client'
-import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import React, {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 
 interface Props {
   children: ReactNode
   title: string
+  notification?: number
+  setNotification?: Dispatch<SetStateAction<number>>
 }
 
-export default function FriendsDropDown({ children, title }: Props) {
+export default function FriendsDropDown({
+  children,
+  title,
+  notification = 0,
+  setNotification,
+}: Props) {
   const [isVisible, setIsVisible] = useState(false)
 
   const botaoRef = useRef<HTMLButtonElement & HTMLDivElement>(null)
@@ -30,8 +44,22 @@ export default function FriendsDropDown({ children, title }: Props) {
 
   return (
     <div ref={botaoRef} className="relative bg-white">
-      <button ref={botaoRef} onClick={() => setIsVisible(!isVisible)}>
-        {title}
+      <button
+        className="relative"
+        ref={botaoRef}
+        onClick={() => {
+          setIsVisible(!isVisible)
+          if (setNotification) {
+            setNotification(0)
+          }
+        }}
+      >
+        <span>{title}</span>
+        {notification !== 0 ? (
+          <span className="absolute bg-red-700 text-gray-50 text-xs rounded-full w-4 bottom-0 right-0">
+            {notification}
+          </span>
+        ) : null}
       </button>
       {isVisible ? <div className="absolute bg-white">{children}</div> : null}
     </div>

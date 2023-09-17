@@ -1,11 +1,14 @@
 import React from 'react'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs'
+dayjs.extend(relativeTime)
 
 interface Props {
   image: string
   name: string
   timePost: Date
 }
-export default function PersonBlock({ image, name }: Props) {
+export default function PersonBlock({ image, name, timePost }: Props) {
   return (
     <div className="flex mb-5 gap-2 m-3">
       <a className="rounded-full border-none">
@@ -22,8 +25,7 @@ export default function PersonBlock({ image, name }: Props) {
           </span>
         </h4>
         <span className="font-light text-xs leading-5 text-gray-600">
-          {' '}
-          {'5h'}
+          {`${dayjs().from(dayjs(timePost), true)} ago`}
         </span>
       </div>
     </div>

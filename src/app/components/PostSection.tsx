@@ -2,7 +2,6 @@
 import { Posts } from '@/interfaces/Posts'
 import React, { useEffect, useState } from 'react'
 import Comment from './Comment'
-import Link from 'next/link'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { api } from '@/lib/api'
 import PersonBlock from './PersonBlock'
@@ -52,7 +51,7 @@ export default function PostSection({ tokenString, token }: Props) {
       ) : (
         posts.map((post) => {
           return (
-            <div key={post.id} className="border border-red-600">
+            <div key={post.postTitle} className="border border-red-600">
               {/* person profile */}
               <div>
                 {/* prof picture */}
@@ -62,13 +61,8 @@ export default function PostSection({ tokenString, token }: Props) {
                   name={post.user.name}
                   timePost={post.postDate as Date}
                 ></PersonBlock>
-                <Link href={`/profile/${post.user.id}`}>{post.user.name}</Link>
               </div>
               {/* actual post */}
-              <div>
-                <h3>{post.postTitle}</h3>
-                <p>{post.postDescription}</p>
-              </div>
               {/* Comments */}
               {post.comments.map((comment) => {
                 return (
