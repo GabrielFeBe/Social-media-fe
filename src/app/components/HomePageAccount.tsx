@@ -4,8 +4,8 @@ import { api } from '@/lib/api'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 // import Image from 'next/image'
 import Link from 'next/link'
-import { ButtonFriendRequest } from './ButtonFriendRequest'
 import PostSection from './PostSection'
+import PersonMayKnow from './PersonMayKnow'
 
 interface Props {
   token: UserIDJwtPayload
@@ -20,18 +20,6 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
   })
   const user: UserFriend = responseU.data
 
-  const responseF = await api.get('/friends', {
-    headers: {
-      Authorization: tokenString,
-    },
-  })
-  const friendsToRequest: UserFriend[] = responseF.data || []
-  const toRequest = friendsToRequest.filter((friend) => {
-    if (friend.id === token.id) return false
-
-    if (friend.friends.length === 0) return true
-    return !friend.friends.some((fr) => fr.id === token.id)
-  })
   return (
     <div className="grid grid-cols-3">
       <aside>
@@ -64,19 +52,7 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
         <PostSection token={token} tokenString={tokenString} />
       </section>
       <aside>
-        <h2>Ppl dat u may know</h2>
-        {toRequest.map((person) => {
-          return (
-            <>
-              <Link href={`/profile/${person.id}`}>{person.name}</Link>
-              <ButtonFriendRequest
-                requesterId={token.id}
-                targetId={person.id as number}
-                tokenString={tokenString}
-              />
-            </>
-          )
-        })}
+        <PersonMayKnow token={token} tokenString={tokenString}></PersonMayKnow>
       </aside>
     </div>
   )
