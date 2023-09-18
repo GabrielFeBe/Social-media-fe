@@ -42,7 +42,9 @@ export default function FriendsRequest({ token, tokenString }: Props) {
     socket.on('friendRequest', (data) => {
       console.log('Friend Request Recebido:', data)
       // Lógica para lidar com notificações de friend request
-      setNotification(notification + 1)
+      if (data.targetId === token.id) {
+        setNotification(notification + 1)
+      }
     })
 
     socket.on('disconnect', () => {
@@ -52,7 +54,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
     return () => {
       socket.disconnect()
     }
-  }, [notification])
+  }, [notification, token])
 
   useEffect(() => {
     async function fetchFriends() {

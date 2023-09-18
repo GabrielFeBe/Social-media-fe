@@ -21,7 +21,7 @@ export default async function Home() {
           <FriendsRequest token={token} tokenString={stringToken} />
         ) : null}
       </header>
-      <main className="min-h-screen w-full flex flex-1 bg-gray-400 justify-center items-baseline">
+      <main className="w-full bg-gray-400">
         {token ? (
           // @ts-expect-error next new feature
           <HomePageAccount token={token} tokenString={stringToken} />

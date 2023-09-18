@@ -26,7 +26,9 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
     socket.on('friendRequest', (data) => {
       console.log('Friend Request Recebido:', data)
       // Lógica para lidar com notificações de friend request
-      setUpdate(!update)
+      if (data.targetId === token.id) {
+        setUpdate(!update)
+      }
     })
 
     socket.on('disconnect', () => {
@@ -36,7 +38,7 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
     return () => {
       socket.disconnect()
     }
-  }, [update])
+  }, [update, token])
 
   useEffect(() => {
     async function fetchFriendList() {
@@ -58,20 +60,20 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
   }, [token, tokenString, update])
 
   return (
-    <>
+    <div className="overflow-hidden">
       <h2>Ppl dat u may know</h2>
       {list.map((person) => {
         return (
-          <>
+          <div key={person.email}>
             <Link href={`/profile/${person.id}`}>{person.name}</Link>
             <ButtonFriendRequest
               requesterId={token.id}
               targetId={person.id as number}
               tokenString={tokenString}
             />
-          </>
+          </div>
         )
       })}
-    </>
+    </div>
   )
 }

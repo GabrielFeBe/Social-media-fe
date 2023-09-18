@@ -51,7 +51,7 @@ export default function PostSection({ tokenString, token }: Props) {
       ) : (
         posts.map((post) => {
           return (
-            <div key={post.postTitle} className="border border-red-600">
+            <div key={post.postTitle} className="border border-gray-600">
               {/* person profile */}
               <div>
                 {/* prof picture */}
