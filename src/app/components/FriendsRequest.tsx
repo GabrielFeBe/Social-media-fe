@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { ButtonRejectorAcceptReq } from './ButtonRejectorAcceptReq'
 import FriendsDropDown from './FriendsDropDown'
 import { io } from 'socket.io-client'
+import Link from 'next/link'
 
 interface Requester {
   id: number
@@ -24,7 +25,7 @@ interface Requested {
   }
 }
 interface Props {
-  token: UserIDJwtPayload
+  token: UserIDJwtPayload | null
   tokenString: string
 }
 
@@ -42,7 +43,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
     socket.on('friendRequest', (data) => {
       console.log('Friend Request Recebido:', data)
       // Lógica para lidar com notificações de friend request
-      if (data.targetId === token.id) {
+      if (token && data.targetId === token.id) {
         setNotification(notification + 1)
       }
     })
@@ -58,6 +59,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
 
   useEffect(() => {
     async function fetchFriends() {
+      if (!token) return null
       const responseUF: Requested = await api.get(`/user/${token.id}`)
       const requesteds = responseUF.data.user.requested || []
       setRequesteds(requesteds)
@@ -65,25 +67,30 @@ export default function FriendsRequest({ token, tokenString }: Props) {
     fetchFriends()
   }, [token, notification])
   return (
-    <nav className="flex justify-end gap-4 mr-10">
-      <FriendsDropDown
-        title="Friends"
-        notification={notification}
-        setNotification={setNotification}
-      >
-        {requesteds.map((request) => {
-          const { id } = request.friendRequest
-          return (
-            <div key={request.email}>
-              <p>{request.name}</p>
-              <ButtonRejectorAcceptReq id={id} tokenString={tokenString} />
-            </div>
-          )
-        })}
-      </FriendsDropDown>
-      <FriendsDropDown title="Info">
-        <a href="/api/auth/logout">Logout</a>
-      </FriendsDropDown>
-    </nav>
+    <div className="flex justify-between flex-1 bg-red-500 fixed min-w-full top-0 left-0">
+      <Link href="/">Home</Link>
+      {token ? (
+        <nav className="flex gap-4 mr-10">
+          <FriendsDropDown
+            title="Friends"
+            notification={notification}
+            setNotification={setNotification}
+          >
+            {requesteds.map((request) => {
+              const { id } = request.friendRequest
+              return (
+                <div key={request.email}>
+                  <p>{request.name}</p>
+                  <ButtonRejectorAcceptReq id={id} tokenString={tokenString} />
+                </div>
+              )
+            })}
+          </FriendsDropDown>
+          <FriendsDropDown title="Info">
+            <a href="/api/auth/logout">Logout</a>
+          </FriendsDropDown>
+        </nav>
+      ) : null}
+    </div>
   )
 }

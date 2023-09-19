@@ -13,7 +13,7 @@ interface Props {
 export default async function HomePageAccount({ token, tokenString }: Props) {
   return (
     <div className="grid grid-cols-3 min-h-screen">
-      <aside className="relativ items-start justify-between overflow-hidden px-28 py-16 ">
+      <aside className="relativ items-start justify-between overflow-hidden px-28 py-16">
         {/* Profile */}
         {/* <Image src={ user}
        alt=""

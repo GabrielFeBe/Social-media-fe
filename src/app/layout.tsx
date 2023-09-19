@@ -1,8 +1,10 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Link from 'next/link'
-
+import { getUser } from '@/lib/auth'
+import { cookies } from 'next/headers'
+import { UserIDJwtPayload } from 'jsonwebtoken'
+import FriendsRequest from './components/FriendsRequest'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -15,10 +17,23 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  let token: null | UserIDJwtPayload = null
+  try {
+    token = getUser()
+  } catch (err) {
+    token = null
+  }
+  const stringToken = cookies().get('token')?.value
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Link href="/">Home</Link>
+        <header>
+          {token ? (
+            // @ts-expect-error next new feature
+            <FriendsRequest token={token} tokenString={stringToken} />
+          ) : null}
+        </header>
 
         {children}
       </body>

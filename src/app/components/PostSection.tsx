@@ -61,6 +61,10 @@ export default function PostSection({ tokenString, token }: Props) {
                   name={post.user.name}
                   timePost={post.postDate as Date}
                 ></PersonBlock>
+                <div className="m-3">
+                  <h4>{post.postTitle}</h4>
+                  <span>{post.postDescription}</span>
+                </div>
               </div>
               {/* actual post */}
               {/* Comments */}

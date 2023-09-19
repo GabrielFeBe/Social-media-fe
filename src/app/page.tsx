@@ -1,6 +1,5 @@
 import { getUser } from '@/lib/auth'
 import { UserIDJwtPayload } from 'jsonwebtoken'
-import FriendsRequest from './components/FriendsRequest'
 import HomePageAccount from './components/HomePageAccount'
 import LoginHome from './components/LoginHome'
 import { cookies } from 'next/headers'
@@ -15,13 +14,7 @@ export default async function Home() {
   const stringToken = cookies().get('token')?.value
   return (
     <>
-      <header>
-        {token ? (
-          // @ts-expect-error next new feature
-          <FriendsRequest token={token} tokenString={stringToken} />
-        ) : null}
-      </header>
-      <main className="w-full bg-gray-400">
+      <main className="w-full bg-gray-400 mt-6">
         {token ? (
           // @ts-expect-error next new feature
           <HomePageAccount token={token} tokenString={stringToken} />
