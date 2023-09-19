@@ -14,7 +14,7 @@ export default async function Home() {
   const stringToken = cookies().get('token')?.value
   return (
     <>
-      <main className="w-full bg-gray-400 mt-6">
+      <main className="w-full bg-gray-400 min-h-screen">
         {token ? (
           // @ts-expect-error next new feature
           <HomePageAccount token={token} tokenString={stringToken} />

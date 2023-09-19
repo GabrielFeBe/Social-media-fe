@@ -10,14 +10,14 @@ import React, {
 
 interface Props {
   children: ReactNode
-  title: string
+  title: React.ComponentType
   notification?: number
   setNotification?: Dispatch<SetStateAction<number>>
 }
 
 export default function FriendsDropDown({
   children,
-  title,
+  title: Title,
   notification = 0,
   setNotification,
 }: Props) {
@@ -43,7 +43,7 @@ export default function FriendsDropDown({
   }, [])
 
   return (
-    <div ref={botaoRef} className="relative bg-white">
+    <div ref={botaoRef} className="relative">
       <button
         className="relative"
         ref={botaoRef}
@@ -54,7 +54,8 @@ export default function FriendsDropDown({
           }
         }}
       >
-        <span>{title}</span>
+        <Title></Title>
+
         {notification !== 0 ? (
           <span className="absolute bg-red-700 text-gray-50 text-xs rounded-full w-4 bottom-0 right-0">
             {notification}

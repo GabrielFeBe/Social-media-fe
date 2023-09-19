@@ -12,8 +12,8 @@ interface Props {
 
 export default async function HomePageAccount({ token, tokenString }: Props) {
   return (
-    <div className="grid grid-cols-3 min-h-screen">
-      <aside className="relativ items-start justify-between overflow-hidden px-28 py-16">
+    <div className="grid grid-cols-3  overflow-hidden">
+      <aside className="relativ items-start justify-between overflow-hidden px-28 py-16 h-full ">
         {/* Profile */}
         {/* <Image src={ user}
        alt=""
@@ -26,10 +26,10 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
       </aside>
 
       {/* posts */}
-      <section className="max-h-screen overflow-y-scroll">
+      <section className="max-h-screen overflow-y-scroll py-16">
         <PostSection token={token} tokenString={tokenString} />
       </section>
-      <aside className="overflow-hidden">
+      <aside className="overflow-hidden py-16">
         <PersonMayKnow token={token} tokenString={tokenString}></PersonMayKnow>
       </aside>
     </div>

@@ -2,8 +2,10 @@ import { api } from '@/lib/api'
 import { getUser } from '@/lib/auth'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import dayjs from 'dayjs'
-
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { cookies } from 'next/headers'
+import PostSection from '@/app/components/PostSection'
+dayjs.extend(relativeTime)
 
 interface User {
   id: number
@@ -50,28 +52,24 @@ export default async function profile({ params }: { params: { id: string } }) {
   const user: User = responseU.data.user
 
   return (
-    <main className="grid grid-cols-3 gap-5">
-      <div className="">
-        <img src={user.profilePicture} alt="foto" />
+    <main className="grid grid-cols-3 gap-5 min-h-screen bg-gray-400">
+      <div className="pt-16">
+        <img
+          src={user.profilePicture}
+          alt="foto"
+          className="w-[200px] h-[200px] aspect-video rounded-full"
+        />
         <p>{user.name}</p>
         <span>{user.description}</span>
         <p>{user.local}</p>
       </div>
-      <article className="w-full col-span-2">
+      <article className="w-full col-span-2 pt-16">
         <h1>Time Line</h1>
-        {posts.map((post) => {
-          return (
-            <div key={post.id}>
-              {/* aqui virá o perfil antes da postagem acho que vou componentizar isso já que devo usar para postagens externas também */}
-              {/* Tenho que colocar uma rota para update de imagens nos posts */}
-              <h3>{post.postTitle}</h3>
-              {/* Colocar dayjs aqui */}
-              <span>{dayjs(post.postDate).format('MMMM D, YYYY h:mm A')}</span>
-              <p>{post.postDescription}</p>
-              {/* aqui virá a imagem */}
-            </div>
-          )
-        })}
+        <PostSection
+          token={token}
+          tokenString={stringToken as string}
+          id={+params.id}
+        ></PostSection>
       </article>
     </main>
   )

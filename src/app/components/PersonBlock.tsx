@@ -10,7 +10,7 @@ interface Props {
 }
 export default function PersonBlock({ image, name, timePost }: Props) {
   return (
-    <div className="flex mb-5 gap-2 m-3">
+    <div className="flex mb-5 gap-2 mr-3 ml-3">
       <a className="rounded-full border-none">
         <img
           src={image}

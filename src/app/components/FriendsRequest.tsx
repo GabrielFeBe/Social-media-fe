@@ -6,6 +6,7 @@ import { ButtonRejectorAcceptReq } from './ButtonRejectorAcceptReq'
 import FriendsDropDown from './FriendsDropDown'
 import { io } from 'socket.io-client'
 import Link from 'next/link'
+import { ArrowBigDown, LucideHome, User2 } from 'lucide-react'
 
 interface Requester {
   id: number
@@ -67,12 +68,14 @@ export default function FriendsRequest({ token, tokenString }: Props) {
     fetchFriends()
   }, [token, notification])
   return (
-    <div className="flex justify-between flex-1 bg-red-500 fixed min-w-full top-0 left-0">
-      <Link href="/">Home</Link>
+    <div className="flex justify-between flex-1 bg-slate-600 fixed min-w-full top-0 left-0 h-8 items-center">
+      <Link href="/">
+        <LucideHome></LucideHome>
+      </Link>
       {token ? (
         <nav className="flex gap-4 mr-10">
           <FriendsDropDown
-            title="Friends"
+            title={User2}
             notification={notification}
             setNotification={setNotification}
           >
@@ -86,7 +89,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
               )
             })}
           </FriendsDropDown>
-          <FriendsDropDown title="Info">
+          <FriendsDropDown title={ArrowBigDown}>
             <a href="/api/auth/logout">Logout</a>
           </FriendsDropDown>
         </nav>

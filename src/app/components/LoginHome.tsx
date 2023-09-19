@@ -22,7 +22,10 @@ export default function LoginHome() {
     }
   }
   return (
-    <form className=" flex flex-col w-[300px]" onSubmit={submitLogin}>
+    <form
+      className=" flex flex-col w-[300px] min-h-screen m-auto py-16"
+      onSubmit={submitLogin}
+    >
       <input type="text" placeholder="Email" name="email" />
       <input type="password" placeholder="Password" name="password" />
       <button

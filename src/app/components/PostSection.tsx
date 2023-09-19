@@ -1,18 +1,17 @@
 'use client'
 import { Posts } from '@/interfaces/Posts'
 import React, { useEffect, useState } from 'react'
-import Comment from './Comment'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { api } from '@/lib/api'
-import PersonBlock from './PersonBlock'
-import CommentPerson from './CommentPerson'
+import PostComponent from './PostComponent'
 
 interface Props {
   tokenString: string
   token: UserIDJwtPayload
+  id?: number
 }
 
-export default function PostSection({ tokenString, token }: Props) {
+export default function PostSection({ tokenString, token, id }: Props) {
   const [update, setUpdate] = useState(false)
   const [posts, setPosts] = useState<[] | Posts[]>([])
   const [postsLoading, setPostsLoading] = useState(true)
@@ -20,13 +19,24 @@ export default function PostSection({ tokenString, token }: Props) {
   useEffect(() => {
     async function postsFetch() {
       try {
-        const responseP = await api.get('/posts', {
-          headers: {
-            Authorization: tokenString,
-          },
-        })
-        const postOrEmpty: Posts[] = responseP.data || []
-        setPosts(postOrEmpty)
+        if (id) {
+          const responseP = await api.get(`/posts/user/${id}`, {
+            headers: {
+              Authorization: tokenString,
+            },
+          })
+          const postOrEmpty: Posts[] = responseP.data || []
+          console.log(postOrEmpty)
+          setPosts(postOrEmpty)
+        } else {
+          const responseP = await api.get('/posts', {
+            headers: {
+              Authorization: tokenString,
+            },
+          })
+          const postOrEmpty: Posts[] = responseP.data || []
+          setPosts(postOrEmpty)
+        }
       } catch (err) {
         setPostsError(true)
       } finally {
@@ -34,7 +44,7 @@ export default function PostSection({ tokenString, token }: Props) {
       }
     }
     postsFetch()
-  }, [update, tokenString])
+  }, [update, tokenString, id])
 
   if (postsError) {
     return (
@@ -51,43 +61,14 @@ export default function PostSection({ tokenString, token }: Props) {
       ) : (
         posts.map((post) => {
           return (
-            <div key={post.postTitle} className="border border-gray-600">
-              {/* person profile */}
-              <div>
-                {/* prof picture */}
-                {/* name */}
-                <PersonBlock
-                  image={post.user.profilePicture}
-                  name={post.user.name}
-                  timePost={post.postDate as Date}
-                ></PersonBlock>
-                <div className="m-3">
-                  <h4>{post.postTitle}</h4>
-                  <span>{post.postDescription}</span>
-                </div>
-              </div>
-              {/* actual post */}
-              {/* Comments */}
-              {post.comments.map((comment) => {
-                return (
-                  <div key={comment.comment}>
-                    {/* eslint-disable-next-line */}
-                   <CommentPerson comment={comment.comment}
-                      image={comment.user.profilePicture}
-                      name={comment.user.name}
-                      timePost={comment.commentDate}
-                      id={comment.user.id as number}
-                    ></CommentPerson>
-                  </div>
-                )
-              })}
-              <Comment
-                id={post.id as number}
-                tokenString={tokenString}
-                userId={token.id}
-                update={update}
+            <div key={post.postTitle}>
+              <PostComponent
+                post={post}
                 setUpdate={setUpdate}
-              ></Comment>
+                token={token}
+                tokenString={tokenString}
+                update={update}
+              ></PostComponent>
             </div>
           )
         })

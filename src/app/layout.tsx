@@ -29,10 +29,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <header>
-          {token ? (
-            // @ts-expect-error next new feature
-            <FriendsRequest token={token} tokenString={stringToken} />
-          ) : null}
+          {/* @ts-expect-error next new feature */}
+          <FriendsRequest token={token} tokenString={stringToken} />
         </header>
 
         {children}
