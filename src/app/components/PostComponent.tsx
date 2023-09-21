@@ -21,7 +21,7 @@ export default function PostComponent({
   update,
 }: Props) {
   return (
-    <div key={post.postTitle}>
+    <>
       {/* person profile */}
       <div>
         {/* prof picture */}
@@ -30,6 +30,7 @@ export default function PostComponent({
           image={post.user.profilePicture}
           name={post.user.name}
           timePost={post.postDate as Date}
+          id={post.userId}
         ></PersonBlock>
         <div className="m-3">
           <h4>{post.postTitle}</h4>
@@ -58,6 +59,6 @@ export default function PostComponent({
         update={update}
         setUpdate={setUpdate}
       ></Comment>
-    </div>
+    </>
   )
 }

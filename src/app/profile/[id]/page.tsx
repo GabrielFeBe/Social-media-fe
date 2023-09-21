@@ -53,7 +53,7 @@ export default async function profile({ params }: { params: { id: string } }) {
 
   return (
     <main className="grid grid-cols-3 gap-5 min-h-screen bg-gray-400">
-      <div className="pt-16">
+      <div className="pt-16 pl-16">
         <img
           src={user.profilePicture}
           alt="foto"
@@ -64,7 +64,7 @@ export default async function profile({ params }: { params: { id: string } }) {
         <p>{user.local}</p>
       </div>
       <article className="w-full col-span-2 pt-16">
-        <h1>Time Line</h1>
+        <h1 className="text-center">Time Line</h1>
         <PostSection
           token={token}
           tokenString={stringToken as string}

@@ -48,8 +48,14 @@ export default function Comment({
         id=""
         placeholder="Make your comment here"
         onChange={({ target }) => setComment(target.value)}
+        className="w-1/2 h-16 break block resize-none"
       ></textarea>
-      <button onClick={makeComment}>Comment</button>
+      <button
+        className="hover:text-gray-400 p-3 bg-gray-950 text-gray-50 rounded-xl mt-2 mb-2"
+        onClick={makeComment}
+      >
+        Comment
+      </button>
     </>
   )
 }
