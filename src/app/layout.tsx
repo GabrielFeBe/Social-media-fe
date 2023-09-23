@@ -34,6 +34,26 @@ export default function RootLayout({
         </header>
 
         {children}
+        <footer className="w-full h-[200px] bg-gray-500">
+          <div className="flex flex-1 justify-between items-center pt-10 w-1/2 m-auto">
+            <a
+              href="https://www.instagram.com/"
+              className="h-10 w-10  bg-[url('../assets/ig.svg')] bg-cover block  hover:scale-hover-grow transition-transform"
+            ></a>
+            <a
+              href="https://github.com/GabrielFeBe"
+              className="h-10 w-10  bg-[url('../assets/github.svg')] bg-cover block  hover:scale-hover-grow transition-transform"
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/gabriel-fernandes-453813264/"
+              className="h-10 w-10  bg-[url('../assets/linkedin.svg')] bg-cover block  hover:scale-hover-grow transition-transform"
+            ></a>
+          </div>
+
+          <p className="m-auto w-1/2 text-center pt-10">
+            © Copyright Social-G 2023
+          </p>
+        </footer>
       </body>
     </html>
   )
