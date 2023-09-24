@@ -11,7 +11,13 @@ const config: Config = {
       'hover-grow': '1.2',
       'hover-grow-foto': '1.02',
     },
+
     extend: {
+      minHeight: {
+        '1/4': '25vh',
+        '1/2': '50vh',
+        '3/4': '77vh',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

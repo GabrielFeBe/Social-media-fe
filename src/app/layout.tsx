@@ -38,15 +38,21 @@ export default function RootLayout({
           <div className="flex flex-1 justify-between items-center pt-10 w-1/2 m-auto">
             <a
               href="https://www.instagram.com/"
+              target="_blank"
               className="h-10 w-10  bg-[url('../assets/ig.svg')] bg-cover block  hover:scale-hover-grow transition-transform"
+              rel="noreferrer"
             ></a>
             <a
               href="https://github.com/GabrielFeBe"
+              target="_blank"
               className="h-10 w-10  bg-[url('../assets/github.svg')] bg-cover block  hover:scale-hover-grow transition-transform"
+              rel="noreferrer"
             ></a>
             <a
               href="https://www.linkedin.com/in/gabriel-fernandes-453813264/"
+              target="_blank"
               className="h-10 w-10  bg-[url('../assets/linkedin.svg')] bg-cover block  hover:scale-hover-grow transition-transform"
+              rel="noreferrer"
             ></a>
           </div>
 

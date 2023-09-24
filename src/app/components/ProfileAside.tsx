@@ -32,7 +32,7 @@ export default async function ProfileAside({ token, tokenString }: Props) {
       <p className="pt-2">{user?.description}</p>
       <p className="pt-2">{user?.local}</p>
       <Link
-        href={`/friends/${user.id}}`}
+        href={`/friends`}
         className="pt-1 hover:bg-gray-600 rounded-md pb-1 mt-1"
       >
         Friend List
