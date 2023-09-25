@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { cookies } from 'next/headers'
 import PostSection from '@/app/components/PostSection'
+import Link from 'next/link'
 dayjs.extend(relativeTime)
 
 interface User {
@@ -48,12 +49,13 @@ export default async function profile({ params }: { params: { id: string } }) {
       Authorization: stringToken,
     },
   })
-  const posts: Posts[] = responseP.data
   const user: User = responseU.data.user
 
   return (
     <main className="grid grid-cols-3 gap-5 min-h-screen bg-gray-400">
       <div className="pt-16 pl-16">
+        {/* disable eslint for next line */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={user.profilePicture}
           alt="foto"
@@ -62,6 +64,12 @@ export default async function profile({ params }: { params: { id: string } }) {
         <p>{user.name}</p>
         <span>{user.description}</span>
         <p>{user.local}</p>
+        <Link
+          href={`/friends/${user.id}`}
+          className="pt-1 hover:bg-gray-600 rounded-md pb-1 mt-1"
+        >
+          Friend List
+        </Link>
       </div>
       <article className="w-full col-span-2 pt-16">
         <h1 className="text-center">Time Line</h1>

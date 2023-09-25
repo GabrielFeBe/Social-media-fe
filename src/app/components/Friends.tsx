@@ -27,6 +27,7 @@ export default function Friends({ friends, tokenString, token }: Props) {
     if (data === null) {
       fetchUser()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   console.log(friends)
   const user = data
@@ -48,8 +49,10 @@ export default function Friends({ friends, tokenString, token }: Props) {
               <div>
                 <Link href={`/profile/${friend.id}`}>{friend.name}</Link>
               </div>
-              {set.has(friend.id) ? (
-                <div className="bg-green-500 rounded-md p-1">Amigo</div>
+              {friend.id === token.id ? (
+                <div className="bg-green-500 rounded-md p-1">You</div>
+              ) : set.has(friend.id) ? (
+                <div className="bg-green-500 rounded-md p-1">Friend</div>
               ) : (
                 <div className="bg-red-500 rounded-md p-1">
                   <ButtonFriendRequest
