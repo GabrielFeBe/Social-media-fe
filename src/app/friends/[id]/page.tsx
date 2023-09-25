@@ -4,9 +4,9 @@ import { getUser } from '@/lib/auth'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { cookies } from 'next/headers'
 import React from 'react'
-import Link from 'next/link'
+import Friends from '@/app/components/Friends'
 
-export default async function page() {
+export default async function page({ params }: { params: { id: string } }) {
   // preciso de um componente que receba os amigos do usuario logado e renderize eles em pequenas cartas de 100x100
   let token: null | UserIDJwtPayload = null
   try {
@@ -22,8 +22,9 @@ export default async function page() {
         </h1>
       </div>
     )
+  const id = +params.id
   const tokenString = cookies().get('token')?.value
-  const responseU = await api.get(`/friends/${token.id}`, {
+  const responseU = await api.get(`/friends/${id}`, {
     headers: {
       Authorization: tokenString,
     },
@@ -31,24 +32,13 @@ export default async function page() {
   const user: UserFriend = responseU.data
   const friends = user.friends || []
 
-  console.log(user)
-
   return (
     <div className="m-auto w-3/4 min-h-3/4 bg-blue-500 max-h-fit pt-10 flex flex-wrap ">
-      {friends.map((friend) => {
-        return (
-          <div key={friend.id} className="flex gap-2 h-24">
-            <img
-              src={friend.profilePicture}
-              alt=""
-              className="w-20 h-20 rounded-full"
-            />
-            <div>
-              <Link href={`/profile/${friend.id}`}>{friend.name}</Link>
-            </div>
-          </div>
-        )
-      })}
+      <Friends
+        friends={friends}
+        token={token}
+        tokenString={tokenString as string}
+      />
     </div>
   )
 }

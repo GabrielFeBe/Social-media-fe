@@ -5,6 +5,7 @@ import { getUser } from '@/lib/auth'
 import { cookies } from 'next/headers'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import FriendsRequest from './components/FriendsRequest'
+import { MyContextProvider } from '@/context/Profile.context'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -32,8 +33,7 @@ export default function RootLayout({
           {/* @ts-expect-error next new feature */}
           <FriendsRequest token={token} tokenString={stringToken} />
         </header>
-
-        {children}
+        <MyContextProvider>{children}</MyContextProvider>
         <footer className="w-full h-[200px] bg-gray-500">
           <div className="flex flex-1 justify-between items-center pt-10 w-1/2 m-auto">
             <a

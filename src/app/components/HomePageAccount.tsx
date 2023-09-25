@@ -21,7 +21,6 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
        height={200}
       /> */}
 
-        {/* @ts-expect-error next new feature */}
         <ProfileAside token={token} tokenString={tokenString} />
       </aside>
 

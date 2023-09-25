@@ -1,21 +1,32 @@
-import React from 'react'
+'use client'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { api } from '@/lib/api'
 import UserFriend from '@/interfaces/Friend'
 import { UserIDJwtPayload } from 'jsonwebtoken'
+import { useMyContext } from '@/context/Profile.context'
 
 interface Props {
   token: UserIDJwtPayload
   tokenString: string
 }
 
-export default async function ProfileAside({ token, tokenString }: Props) {
-  const responseU = await api.get(`/friends/${token.id}`, {
-    headers: {
-      Authorization: tokenString,
-    },
-  })
-  const user: UserFriend = responseU.data
+export default function ProfileAside({ token, tokenString }: Props) {
+  const { addData, data } = useMyContext()
+  const user = data
+  useEffect(() => {
+    async function fetchUser() {
+      const responseU = await api.get(`/friends/${token.id}`, {
+        headers: {
+          Authorization: tokenString,
+        },
+      })
+      const user: UserFriend = responseU.data
+      addData(user)
+    }
+    fetchUser()
+  }, [])
+  if (user === null) return <></>
 
   return (
     <>
