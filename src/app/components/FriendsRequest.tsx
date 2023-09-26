@@ -68,7 +68,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
     fetchFriends()
   }, [token, notification])
   return (
-    <div className="flex justify-between flex-1 bg-slate-600 fixed min-w-full top-0 left-0 h-8 items-center">
+    <div className="flex justify-between flex-1 bg-gray-500 fixed min-w-full top-0 left-0 h-8 items-center">
       <Link href="/">
         <LucideHome></LucideHome>
       </Link>

@@ -25,7 +25,7 @@ export default function Comment({
         {
           postId: id,
           comment,
-          userId, // isso é um mock momentaneo.
+          userId, // token.id
         },
         {
           headers: {
@@ -48,7 +48,7 @@ export default function Comment({
         id=""
         placeholder="Make your comment here"
         onChange={({ target }) => setComment(target.value)}
-        className="w-1/2 h-16 break block resize-none"
+        className="w-full h-24 break block resize-none rounded-sm border-2 border-gray-500 bg-black text-white"
       ></textarea>
       <button
         className="hover:text-gray-400 p-3 bg-gray-950 text-gray-50 rounded-xl mt-2 mb-2"

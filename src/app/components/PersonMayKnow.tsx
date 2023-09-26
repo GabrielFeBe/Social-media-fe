@@ -50,7 +50,6 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
       const friendsToRequest: UserFriend[] = responseF.data || []
       const toRequest = friendsToRequest.filter((friend) => {
         if (friend.id === token.id) return false
-
         if (friend.friends.length === 0) return true
         return !friend.friends.some((fr) => fr.id === token.id)
       })
@@ -61,10 +60,10 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
 
   return (
     <div className="overflow-hidden">
-      <h2>Ppl dat u may know</h2>
+      <h2 className=" text-center pb-2">Ppl dat u may know</h2>
       {list.map((person) => {
         return (
-          <div key={person.email}>
+          <div key={person.email} className="m-auto w-fit">
             <Link href={`/profile/${person.id}`}>{person.name}</Link>
             <ButtonFriendRequest
               requesterId={token.id}

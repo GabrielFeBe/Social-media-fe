@@ -3,6 +3,9 @@ export interface Friends {
   name: string
   email: string
   profilePicture: string
+  FriendRequest: {
+    status: boolean
+  }
 }
 
 export default interface UserFriend {

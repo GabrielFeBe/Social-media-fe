@@ -62,7 +62,11 @@ export default function FriendsDropDown({
           </span>
         ) : null}
       </button>
-      {isVisible ? <div className="absolute bg-white">{children}</div> : null}
+      {isVisible ? (
+        <div className="absolute bg-gray-500 right-0 hover:bg-gray-600 hover:text-gray-800 p-3">
+          {children}
+        </div>
+      ) : null}
     </div>
   )
 }

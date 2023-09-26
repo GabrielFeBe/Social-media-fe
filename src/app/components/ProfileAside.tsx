@@ -31,11 +31,13 @@ export default function ProfileAside({ token, tokenString }: Props) {
   return (
     <>
       <div className="flex gap-3 justify-center">
-        <img
-          src={user.profilePicture}
-          alt={`Profile of ${user.name}`}
-          className="w-[200px] h-[200px] aspect-video rounded-full"
-        />
+        <Link href={`/profile/${user.id}`}>
+          <img
+            src={user.profilePicture}
+            alt={`Profile of ${user.name}`}
+            className="w-[200px] h-[200px] aspect-video rounded-full"
+          />
+        </Link>
         <h3 className="self-center font-bold text-xl hover:bg-gray-600 rounded-md p-2">
           <Link href={`/profile/${user.id}`}>{user?.name}</Link>
         </h3>
@@ -48,19 +50,6 @@ export default function ProfileAside({ token, tokenString }: Props) {
       >
         Friend List
       </Link>
-      {/* {user?.friends.map((friend) => { */}
-      {/* return ( */}
-      {/* <> */}
-      {/* <Link href={`/profile/${friend.id}`}>{friend.name}</Link> */}
-      {/* <Image
-              src={friend.profilePicture}
-              alt=""
-              width={200}
-              height={200}
-            /> */}
-      {/* </> */}
-      {/* ) */}
-      {/* })} */}
     </>
   )
 }
