@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { ButtonFriendRequest } from './ButtonFriendRequest'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { io } from 'socket.io-client'
+import ErrorComponent from './ErrorComponent'
 
 interface Props {
   tokenString: string
@@ -15,6 +16,7 @@ interface Props {
 export default function PersonMayKnow({ tokenString, token }: Props) {
   const [list, setList] = useState<UserFriend[] | []>([])
   const [update, setUpdate] = useState(false)
+  const [friendsError, setFriendsError] = useState(false)
 
   useEffect(() => {
     const socket = io('http://localhost:3001') // Substitua pela URL do seu servidor Socket.IO
@@ -42,21 +44,29 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
 
   useEffect(() => {
     async function fetchFriendList() {
-      const responseF = await api.get('/friends', {
-        headers: {
-          Authorization: tokenString,
-        },
-      })
-      const friendsToRequest: UserFriend[] = responseF.data || []
-      const toRequest = friendsToRequest.filter((friend) => {
-        if (friend.id === token.id) return false
-        if (friend.friends.length === 0) return true
-        return !friend.friends.some((fr) => fr.id === token.id)
-      })
-      setList(toRequest)
+      try {
+        const responseF = await api.get('/friends', {
+          headers: {
+            Authorization: tokenString,
+          },
+        })
+        const friendsToRequest: UserFriend[] = responseF.data || []
+        const toRequest = friendsToRequest.filter((friend) => {
+          if (friend.id === token.id) return false
+          if (friend.friends.length === 0) return true
+          return !friend.friends.some((fr) => fr.id === token.id)
+        })
+        setList(toRequest)
+      } catch (err) {
+        setFriendsError(true)
+      }
     }
     fetchFriendList()
   }, [token, tokenString, update])
+
+  if (friendsError) {
+    return <ErrorComponent errorText="Error connecting to server..." />
+  }
 
   return (
     <div className="overflow-hidden">

@@ -1,10 +1,11 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { api } from '@/lib/api'
 import UserFriend from '@/interfaces/Friend'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { useMyContext } from '@/context/Profile.context'
+import ErrorComponent from './ErrorComponent'
 
 interface Props {
   token: UserIDJwtPayload
@@ -13,25 +14,33 @@ interface Props {
 
 export default function ProfileAside({ token, tokenString }: Props) {
   const { addData, data } = useMyContext()
+  const [error, setError] = useState(false)
   const user = data
   useEffect(() => {
     async function fetchUser() {
-      const responseU = await api.get(`/friends/${token.id}`, {
-        headers: {
-          Authorization: tokenString,
-        },
-      })
-      const user: UserFriend = responseU.data
-      addData(user)
+      try {
+        const responseU = await api.get(`/friends/${token.id}`, {
+          headers: {
+            Authorization: tokenString,
+          },
+        })
+        const user: UserFriend = responseU.data
+        addData(user)
+      } catch (err) {
+        setError(true)
+      }
     }
     fetchUser()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   if (user === null) return <></>
-
+  if (error)
+    return <ErrorComponent errorText="Erro ao conectar ao servidor..." />
   return (
     <>
       <div className="flex gap-3 justify-center">
         <Link href={`/profile/${user.id}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={user.profilePicture}
             alt={`Profile of ${user.name}`}

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { api } from '@/lib/api'
 import PostComponent from './PostComponent'
+import ErrorComponent from './ErrorComponent'
 
 interface Props {
   tokenString: string
@@ -26,7 +27,6 @@ export default function PostSection({ tokenString, token, id }: Props) {
             },
           })
           const postOrEmpty: Posts[] = responseP.data || []
-          console.log(postOrEmpty)
           setPosts(postOrEmpty)
         } else {
           const responseP = await api.get('/posts', {
@@ -48,9 +48,7 @@ export default function PostSection({ tokenString, token, id }: Props) {
 
   if (postsError) {
     return (
-      <h1 className="text-3xl text-red-700 font-bold">
-        Some error ocurred within the server connection
-      </h1>
+      <ErrorComponent errorText="Some error ocurred within the server connection" />
     )
   }
 

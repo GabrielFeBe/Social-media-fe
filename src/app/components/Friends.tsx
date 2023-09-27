@@ -4,8 +4,9 @@ import UserFriend, { Friends } from '@/interfaces/Friend'
 import { api } from '@/lib/api'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ButtonFriendRequest } from './ButtonFriendRequest'
+import ErrorComponent from './ErrorComponent'
 
 interface Props {
   friends: Friends[]
@@ -14,15 +15,20 @@ interface Props {
 }
 export default function Friends({ friends, tokenString, token }: Props) {
   const { addData, data } = useMyContext()
+  const [friendsError, setFriendsError] = useState(false)
   useEffect(() => {
     async function fetchUser() {
-      const responseU = await api.get(`/friends/${token.id}`, {
-        headers: {
-          Authorization: tokenString,
-        },
-      })
-      const user: UserFriend = responseU.data
-      addData(user)
+      try {
+        const responseU = await api.get(`/friends/${token.id}`, {
+          headers: {
+            Authorization: tokenString,
+          },
+        })
+        const user: UserFriend = responseU.data
+        addData(user)
+      } catch (err) {
+        setFriendsError(true)
+      }
     }
     if (data === null) {
       console.log('User null so fetch')
@@ -30,6 +36,8 @@ export default function Friends({ friends, tokenString, token }: Props) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  if (friendsError)
+    return <ErrorComponent errorText="Conection with server failed" />
   const user = data
   console.log()
   if (!user) return <></>

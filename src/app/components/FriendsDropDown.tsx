@@ -24,7 +24,7 @@ export default function FriendsDropDown({
   const [isVisible, setIsVisible] = useState(false)
 
   const botaoRef = useRef<HTMLButtonElement & HTMLDivElement>(null)
-
+  const hasChildren = React.Children.count(children) > 0
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -62,8 +62,8 @@ export default function FriendsDropDown({
           </span>
         ) : null}
       </button>
-      {isVisible ? (
-        <div className="absolute bg-gray-500 right-0 hover:bg-gray-600 hover:text-gray-800 p-3">
+      {isVisible && hasChildren ? (
+        <div className="absolute bg-gray-500 right-0 hover:bg-gray-600 hover:text-gray-800 p-3 cursor-pointer">
           {children}
         </div>
       ) : null}
