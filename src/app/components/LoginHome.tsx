@@ -1,10 +1,11 @@
 'use client'
 import { api } from '@/lib/api'
-import React, { FormEvent } from 'react'
+import React, { FormEvent, useState } from 'react'
 import Cookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
 
 export default function LoginHome() {
+  const [loginError, setLoginError] = useState(false)
   const router = useRouter()
   async function submitLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -18,7 +19,11 @@ export default function LoginHome() {
       Cookie.set('token', token)
       router.refresh()
     } catch (err) {
-      console.log(err)
+      setLoginError(true)
+      const delay = setTimeout(() => {
+        setLoginError(false)
+      }, 3000)
+      return () => clearTimeout(delay)
     }
   }
   return (
@@ -35,6 +40,7 @@ export default function LoginHome() {
         Entrar
       </button>
       <button onClick={() => router.push('/register')}>Criar nova conta</button>
+      {loginError && <p className="text-red-600">Erro ao fazer login</p>}
     </form>
   )
 }
