@@ -35,9 +35,9 @@ To get started with this project, follow these steps:
 1. **Clone the Repository:**
 
 ```bash
-   git clone git@github.com:GabrielFeBe/Social-media.git
+   git clone git@github.com:GabrielFeBe/Social-media-fe.git
    #then
-   cd Social-media
+   cd Social-media-fe
 ```
 
 2. **Install Dependencies:**
