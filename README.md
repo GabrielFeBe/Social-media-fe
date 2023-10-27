@@ -54,6 +54,7 @@ npm run dev
 
 ## Configuration
 
+- **Port:** The default port is 3000, but you can change it if you want. You can find the port configuration in the next.config.js file.
 - **Docker:** There's not a Dockerfile yet, nor a docker-compose.yml file. But it's in the roadmap.
 - **Environment Variables:** There's a .env.example file with all the environment variables needed to run the project. You can create a .env file and copy the variables from the .env.example file and fill them with your own values.
 - **Backend:** The backend is not hosted, so you'll need to run it locally. You can find the backend repository [here]("https://github.com/GabrielFeBe/Social-media")
