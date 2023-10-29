@@ -5,6 +5,7 @@ import { UserIDJwtPayload } from 'jsonwebtoken'
 import { api } from '@/lib/api'
 import PostComponent from './PostComponent'
 import ErrorComponent from './ErrorComponent'
+import PostsRegister from './PostsRegister'
 
 interface Props {
   tokenString: string
@@ -54,6 +55,7 @@ export default function PostSection({ tokenString, token, id }: Props) {
 
   return (
     <>
+      <PostsRegister token={token} />
       {postsLoading ? (
         <h1 className="text-3xl text-gray-700 font-bold">Loading...</h1>
       ) : (

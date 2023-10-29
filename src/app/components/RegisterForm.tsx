@@ -1,6 +1,5 @@
 'use client'
 import { Camera } from 'lucide-react'
-import MediaPicker from './MeadiaPicker'
 import { FormEvent, useState } from 'react'
 // import Cookie from 'js-cookie'
 import { api } from '@/lib/api'
@@ -8,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import UserFriend from '@/interfaces/Friend'
 import Cookies from 'js-cookie'
 import { useEdgeStore } from '@/lib/edgestore'
+import { SingleImageDropzone } from './MeadiaPicker'
 
 interface userCreated {
   userCreated: Partial<UserFriend>
@@ -29,9 +29,7 @@ export default function RegisterForm() {
           setProgress(progress)
           console.log(progress)
         },
-        options: {
-          temporary: true,
-        },
+        options: {},
       })
       imageString = resImg.url
     }
@@ -68,7 +66,15 @@ export default function RegisterForm() {
         placeholder="Name and Lastname"
         name="nameAndLastname"
       />
-      <MediaPicker setFile={setFile} />
+      <SingleImageDropzone
+        width={200}
+        height={200}
+        value={file}
+        onChange={(file) => {
+          setFile(file)
+        }}
+        className="bg-black"
+      ></SingleImageDropzone>
       <div className="h-2 w-96 bg-black border rounded overflow-hidden ">
         <div
           className="h-full bg-white transition-all duration-500"
