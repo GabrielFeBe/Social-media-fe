@@ -7,12 +7,14 @@ import FriendsDropDown from './FriendsDropDown'
 import { io } from 'socket.io-client'
 import Link from 'next/link'
 import { ArrowBigDown, LucideHome, User2 } from 'lucide-react'
+import Image from 'next/image'
 
 interface Requester {
   id: number
   name: string
   email: string
   friendRequest: { id: number }
+  profilePicture: string
 }
 
 interface Requested {
@@ -67,6 +69,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
     }
     fetchFriends()
   }, [token, notification])
+  console.log(requesteds)
   return (
     <div className="flex justify-between flex-1 bg-gray-500 fixed min-w-full top-0 left-0 h-8 items-center">
       <Link href="/">
@@ -83,7 +86,16 @@ export default function FriendsRequest({ token, tokenString }: Props) {
               const { id } = request.friendRequest
               return (
                 <div key={request.email}>
-                  <p>{request.name}</p>
+                  <Link href={`/profile/${id}`}>
+                    <Image
+                      src={request.profilePicture}
+                      alt={`Profile of ${request.name}`}
+                      width={1080}
+                      height={1080}
+                      className="w-[40px] h-[40px] rounded-full"
+                    ></Image>
+                    <pre>{request.name}</pre>
+                  </Link>
                   <ButtonRejectorAcceptReq id={id} tokenString={tokenString} />
                 </div>
               )

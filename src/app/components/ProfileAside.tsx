@@ -6,6 +6,7 @@ import UserFriend from '@/interfaces/Friend'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { useMyContext } from '@/context/Profile.context'
 import ErrorComponent from './ErrorComponent'
+import Image from 'next/image'
 
 interface Props {
   token: UserIDJwtPayload
@@ -41,10 +42,12 @@ export default function ProfileAside({ token, tokenString }: Props) {
       <div className="flex gap-3 justify-center">
         <Link href={`/profile/${user.id}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={user.profilePicture}
             alt={`Profile of ${user.name}`}
-            className="w-[200px] h-[200px] aspect-video rounded-full"
+            className="w-[200px] h-[200px] rounded-full"
+            width={1080}
+            height={1080}
           />
         </Link>
         <h3 className="self-center font-bold text-xl hover:bg-gray-600 rounded-md p-2">

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { ButtonFriendRequest } from './ButtonFriendRequest'
 import ErrorComponent from './ErrorComponent'
+import Image from 'next/image'
 
 interface Props {
   friends: Friends[]
@@ -55,11 +56,13 @@ export default function Friends({ friends, tokenString, token }: Props) {
           .map((friend) => {
             return (
               <div key={friend.id} className="flex gap-2 h-24">
-                {/* <img
-                src="nothing.jpg"
-                alt=""
-                className="w-[20px] h-[20px] rounded-full"
-              /> */}
+                <Image
+                  src={friend.profilePicture}
+                  alt={`Profile of ${friend.name}`}
+                  className="w-[40px] h-[40px] rounded-full"
+                  width={1080}
+                  height={1080}
+                />
                 <div>
                   <Link href={`/profile/${friend.id}`}>{friend.name}</Link>
                 </div>

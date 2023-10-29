@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjs from 'dayjs'
+import Image from 'next/image'
 dayjs.extend(relativeTime)
 
 interface Props {
@@ -21,10 +22,12 @@ export default function CommentPerson({
   return (
     <div className="flex gap-2 m-3">
       <Link href={`/profile/${id}`} className="rounded-full border-none">
-        <img
+        <Image
           src={image}
-          alt=""
-          className="w-[32px] h-[32px] rounded-full border-none"
+          alt={`Profile of ${name}`}
+          className="w-[40px] h-[40px] rounded-full"
+          width={1080}
+          height={1080}
         />
       </Link>
       <div className="flex flex-col ">
