@@ -4,9 +4,10 @@ import { ChangeEvent, useState } from 'react'
 
 interface Props {
   image?: string
+  setFile: (file: File) => void
 }
 
-export default function MediaPicker({ image }: Props) {
+export default function MediaPicker({ image, setFile }: Props) {
   const [preview, setPreview] = useState<string | null>(image || null)
 
   function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
@@ -14,6 +15,7 @@ export default function MediaPicker({ image }: Props) {
     if (!files) {
       return
     }
+    setFile(files[0])
     const previewURL = URL.createObjectURL(files[0])
     setPreview(previewURL)
   }

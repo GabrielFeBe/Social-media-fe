@@ -1,33 +1,46 @@
 'use client'
 import { Camera } from 'lucide-react'
 import MediaPicker from './MeadiaPicker'
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 // import Cookie from 'js-cookie'
 import { api } from '@/lib/api'
 import { useRouter } from 'next/navigation'
 import UserFriend from '@/interfaces/Friend'
 import Cookies from 'js-cookie'
+import { useEdgeStore } from '@/lib/edgestore'
 
 interface userCreated {
   userCreated: Partial<UserFriend>
 }
 
 export default function RegisterForm() {
+  const [file, setFile] = useState<File>()
+  const [progress, setProgress] = useState(0)
+  const { edgestore } = useEdgeStore()
   const router = useRouter()
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const makeForm = new FormData(event.currentTarget)
-    // const imageUpload = makeForm.get('coverUrl')
-    // let image = ''
-    // if(imageUpload){
-    // Logica de upload de imagem como ainda não foi feito a rota de imagem no backend não fiz a logica
-    // }
+    let imageString = ''
+    if (file) {
+      const resImg = await edgestore.publicFiles.upload({
+        file,
+        onProgressChange: (progress) => {
+          setProgress(progress)
+          console.log(progress)
+        },
+        options: {
+          temporary: true,
+        },
+      })
+      imageString = resImg.url
+    }
     const response = await api.post('/user', {
       email: makeForm.get('email'),
       password: makeForm.get('password'),
       name: makeForm.get('nameAndLastname'),
       description: makeForm.get('description'),
-      profilePicture: 'nothingHereTN.jpg',
+      profilePicture: imageString,
       local: makeForm.get('local'),
     })
     const user: userCreated = response.data
@@ -36,7 +49,11 @@ export default function RegisterForm() {
   }
 
   return (
-    <form action="" className="flex flex-col gap-4" onSubmit={handleSubmit}>
+    <form
+      action=""
+      className="flex flex-col gap-4 pt-10"
+      onSubmit={handleSubmit}
+    >
       <label
         htmlFor="media"
         className="flex cursor-pointer items-center gap-1.5 text-sm "
@@ -51,7 +68,13 @@ export default function RegisterForm() {
         placeholder="Name and Lastname"
         name="nameAndLastname"
       />
-      <MediaPicker />
+      <MediaPicker setFile={setFile} />
+      <div className="h-2 w-96 bg-black border rounded overflow-hidden ">
+        <div
+          className="h-full bg-white transition-all duration-500"
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
       <textarea
         name="description"
         id=""
