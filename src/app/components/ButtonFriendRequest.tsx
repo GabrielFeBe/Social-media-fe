@@ -16,7 +16,7 @@ export function ButtonFriendRequest({
   const rounter = useRouter()
   return (
     <button
-      className="bg-black rounded-full text-gray-300"
+      className="bg-black rounded-full text-gray-300 hover:bg-gray-700 p-1 hpver:text-gray-100"
       onClick={async () => {
         await api.post(
           '/friends',

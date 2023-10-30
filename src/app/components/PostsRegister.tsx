@@ -45,39 +45,46 @@ export default function PostsRegister({
         },
       },
     )
-
+    // clean the form
+    event.currentTarget.reset()
+    // then reset the file state, and update the component
+    setFile(undefined)
     setUpdate(!update)
-    // clean all the states in this component
   }
   return (
-    <form onSubmit={postCreation}>
+    <form onSubmit={postCreation} className="mb-10">
       <input
         type="text"
         placeholder="Post Title"
-        className="rounded-md"
+        className="rounded-md  pl-2 bg-inherit border-0 text-black placeholder:text-black"
         name="title"
       />
       <textarea
         name="description"
-        className="w-full h-28 rounded-md  pl-2 bg-inherit border-0 text-black placeholder:text-black resize-none"
+        className="text-lg w-full flex-1 resize-none rounded border-0 bg-transparent p-0 leading-relaxed text-black placeholder:text-black focus:ring-0"
         placeholder="Put your text here"
       ></textarea>
-      <input type="checkbox" name="isPublic" />
-      <SingleImageDropzone
-        width={400}
-        height={200}
-        value={file}
-        onChange={(file) => {
-          setFile(file)
-        }}
-        className="text-blacks"
-      ></SingleImageDropzone>
-      <button
-        className="bg-slate-950 hover:bg-slate-800 transition-all duration-500 text-gray-500 rounded-md p-1"
-        type="submit"
-      >
-        Postar
-      </button>
+      <div className="flex gap-2 flex-wrap items-center">
+        <label htmlFor="isPublic">
+          Is public
+          <input type="checkbox" id="isPublic" name="isPublic" />
+        </label>
+        <SingleImageDropzone
+          width={400}
+          height={200}
+          value={file}
+          onChange={(file) => {
+            setFile(file)
+          }}
+          className="bg-black"
+        ></SingleImageDropzone>
+        <button
+          className="bg-slate-950 hover:bg-slate-800 transition-all duration-500 text-gray-500 rounded-md p-1 w-20 h-8"
+          type="submit"
+        >
+          Postar
+        </button>
+      </div>
     </form>
   )
 }

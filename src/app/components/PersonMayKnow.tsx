@@ -7,6 +7,7 @@ import { ButtonFriendRequest } from './ButtonFriendRequest'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { io } from 'socket.io-client'
 import ErrorComponent from './ErrorComponent'
+import Image from 'next/image'
 
 interface Props {
   tokenString: string
@@ -56,6 +57,7 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
           if (friend.friends.length === 0) return true
           return !friend.friends.some((fr) => fr.id === token.id)
         })
+        console.log(toRequest)
         setList(toRequest)
       } catch (err) {
         setFriendsError(true)
@@ -73,13 +75,32 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
       <h2 className=" text-center pb-2">Ppl dat u may know</h2>
       {list.map((person) => {
         return (
-          <div key={person.email} className="m-auto w-fit">
-            <Link href={`/profile/${person.id}`}>{person.name}</Link>
-            <ButtonFriendRequest
-              requesterId={token.id}
-              targetId={person.id as number}
-              tokenString={tokenString}
-            />
+          <div
+            key={person.email}
+            className="m-auto w-fit flex items-center justify-center gap-2"
+          >
+            <Link href={`/profile/${person.id}`}>
+              <Image
+                className="h-[50px] w-[50px] rounded-full"
+                src={person.profilePicture}
+                width={1080}
+                height={1080}
+                alt={`profile of ${person.name}`}
+              ></Image>
+            </Link>
+            <div className="flex flex-col justify-between items-center">
+              <Link
+                className="hover:text-gray-900 "
+                href={`/profile/${person.id}`}
+              >
+                {person.name}
+              </Link>
+              <ButtonFriendRequest
+                requesterId={token.id}
+                targetId={person.id as number}
+                tokenString={tokenString}
+              />
+            </div>
           </div>
         )
       })}

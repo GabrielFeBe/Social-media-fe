@@ -85,7 +85,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
               const { id } = request.friendRequest
               return (
                 <div key={request.email}>
-                  <Link href={`/profile/${id}`}>
+                  <Link href={`/profile/${request.id}`}>
                     <Image
                       src={request.profilePicture}
                       alt={`Profile of ${request.name}`}
