@@ -1,9 +1,11 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import Comment from './Comment'
 import CommentPerson from './CommentPerson'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { Posts } from '@/interfaces/Posts'
 import PersonBlock from './PersonBlock'
+import Image from 'next/image'
 
 interface Props {
   tokenString: string
@@ -20,6 +22,7 @@ export default function PostComponent({
   setUpdate,
   update,
 }: Props) {
+  const [showMore, setShowMore] = useState(false)
   return (
     <>
       {/* person profile */}
@@ -34,7 +37,27 @@ export default function PostComponent({
         ></PersonBlock>
         <div className="m-3">
           <h4>{post.postTitle}</h4>
-          <span>{post.postDescription}</span>
+          <Image
+            src={post.postPicture}
+            width={1080}
+            height={1080}
+            alt={post.postTitle}
+          />
+          <p
+            className={`break-words whitespace-break-spaces ${
+              !showMore
+                ? 'h-12 overflow-hidden whitespace-no-wrap overflow-ellipsis'
+                : ''
+            }`}
+          >
+            {post.postDescription}
+          </p>
+          <button
+            className="text-blue-600 hover:text-blue-500"
+            onClick={() => setShowMore(!showMore)}
+          >
+            {showMore ? 'Show less...' : 'Show more...'}
+          </button>
         </div>
       </div>
       {/* actual post */}

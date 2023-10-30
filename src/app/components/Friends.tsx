@@ -32,7 +32,6 @@ export default function Friends({ friends, tokenString, token }: Props) {
       }
     }
     if (data === null) {
-      console.log('User null so fetch')
       fetchUser()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,7 +39,6 @@ export default function Friends({ friends, tokenString, token }: Props) {
   if (friendsError)
     return <ErrorComponent errorText="Conection with server failed" />
   const user = data
-  console.log()
   if (!user) return <></>
 
   const objComparison: Record<number, boolean> = {}

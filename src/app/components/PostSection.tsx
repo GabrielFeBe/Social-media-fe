@@ -55,7 +55,12 @@ export default function PostSection({ tokenString, token, id }: Props) {
 
   return (
     <>
-      <PostsRegister token={token} />
+      <PostsRegister
+        token={token}
+        setUpdate={setUpdate}
+        update={update}
+        tokenString={tokenString as string}
+      />
       {postsLoading ? (
         <h1 className="text-3xl text-gray-700 font-bold">Loading...</h1>
       ) : (

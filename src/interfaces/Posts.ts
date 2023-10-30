@@ -8,6 +8,7 @@ export interface Posts {
   postDate?: Date
   isPublic: boolean
   userId: number
+  postPicture: string
   user: Friends
   comments: PostComments[]
 }
