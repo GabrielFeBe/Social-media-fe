@@ -2,6 +2,7 @@ import React from 'react'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjs from 'dayjs'
 import Link from 'next/link'
+import Image from 'next/image'
 
 dayjs.extend(relativeTime)
 
@@ -15,9 +16,11 @@ export default function PersonBlock({ image, name, timePost, id }: Props) {
   return (
     <div className="flex mb-5 gap-2 mr-3 ml-3">
       <Link href={`/profile/${id}`} className="rounded-full border-none">
-        <img
+        <Image
           src={image}
           alt=""
+          width={1080}
+          height={1080}
           className="w-[40px] h-[40px] rounded-full border-none"
         />
       </Link>

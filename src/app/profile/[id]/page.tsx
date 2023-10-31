@@ -6,6 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { cookies } from 'next/headers'
 import PostSection from '@/app/components/PostSection'
 import Link from 'next/link'
+import Image from 'next/image'
 dayjs.extend(relativeTime)
 
 interface User {
@@ -44,11 +45,6 @@ export default async function profile({ params }: { params: { id: string } }) {
   if (isNaN(+params.id)) return <h1>Id Must be a number</h1>
   const stringToken = cookies().get('token')?.value
   const responseU = await api.get(`/user/${params.id}`)
-  const responseP = await api.get(`/posts/user/${params.id}`, {
-    headers: {
-      Authorization: stringToken,
-    },
-  })
   const user: User = responseU.data.user
 
   return (
@@ -56,9 +52,11 @@ export default async function profile({ params }: { params: { id: string } }) {
       <div className="pt-16 pl-16">
         {/* disable eslint for next line */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={user.profilePicture}
           alt="foto"
+          width={1080}
+          height={1080}
           className="w-[200px] h-[200px] aspect-video rounded-full"
         />
         <p>{user.name}</p>

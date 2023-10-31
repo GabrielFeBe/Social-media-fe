@@ -6,6 +6,7 @@ import { api } from '@/lib/api'
 import PostComponent from './PostComponent'
 import ErrorComponent from './ErrorComponent'
 import PostsRegister from './PostsRegister'
+import { usePathname } from 'next/navigation'
 
 interface Props {
   tokenString: string
@@ -18,6 +19,7 @@ export default function PostSection({ tokenString, token, id }: Props) {
   const [posts, setPosts] = useState<[] | Posts[]>([])
   const [postsLoading, setPostsLoading] = useState(true)
   const [postsError, setPostsError] = useState(false)
+  const path = usePathname()
   useEffect(() => {
     async function postsFetch() {
       try {
@@ -52,32 +54,32 @@ export default function PostSection({ tokenString, token, id }: Props) {
       <ErrorComponent errorText="Some error ocurred within the server connection" />
     )
   }
-
+  if (postsLoading) {
+    return <h1 className="text-3xl text-gray-700 font-bold">Loading...</h1>
+  }
   return (
     <>
-      <PostsRegister
-        token={token}
-        setUpdate={setUpdate}
-        update={update}
-        tokenString={tokenString as string}
-      />
-      {postsLoading ? (
-        <h1 className="text-3xl text-gray-700 font-bold">Loading...</h1>
-      ) : (
-        posts.map((post) => {
-          return (
-            <div key={post.postTitle}>
-              <PostComponent
-                post={post}
-                setUpdate={setUpdate}
-                token={token}
-                tokenString={tokenString}
-                update={update}
-              ></PostComponent>
-            </div>
-          )
-        })
+      {path === '/' && (
+        <PostsRegister
+          token={token}
+          setUpdate={setUpdate}
+          update={update}
+          tokenString={tokenString as string}
+        />
       )}
+      {posts.map((post) => {
+        return (
+          <div key={post.postTitle}>
+            <PostComponent
+              post={post}
+              setUpdate={setUpdate}
+              token={token}
+              tokenString={tokenString}
+              update={update}
+            ></PostComponent>
+          </div>
+        )
+      })}
     </>
   )
 }

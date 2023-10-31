@@ -53,7 +53,10 @@ export default function Friends({ friends, tokenString, token }: Props) {
           .filter((friend) => friend.FriendRequest.status)
           .map((friend) => {
             return (
-              <div key={friend.id} className="flex gap-2 h-24">
+              <div
+                key={friend.id}
+                className="flex gap-2 h-24 justify-center items-center"
+              >
                 <Image
                   src={friend.profilePicture}
                   alt={`Profile of ${friend.name}`}
@@ -65,13 +68,17 @@ export default function Friends({ friends, tokenString, token }: Props) {
                   <Link href={`/profile/${friend.id}`}>{friend.name}</Link>
                 </div>
                 {objComparison[friend.id] === false ? (
-                  <div className="bg-green-500 rounded-md p-1">
+                  <button className="bg-green-500 rounded-md p-1 h-10 text-center">
                     Request made
-                  </div>
+                  </button>
                 ) : friend.id === token.id ? (
-                  <div className="bg-green-500 rounded-md p-1">You</div>
+                  <button className="bg-green-500 rounded-md p-1 h-10 text-center">
+                    You
+                  </button>
                 ) : objComparison[friend.id] === true ? (
-                  <div className="bg-green-500 rounded-md p-1">Friend</div>
+                  <button className="bg-green-500 rounded-md p-1 h-10 text-center">
+                    Friend
+                  </button>
                 ) : (
                   <div className="bg-red-500 rounded-md p-1">
                     <ButtonFriendRequest
