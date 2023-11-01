@@ -18,7 +18,7 @@ export default async function HomePageAccount({ token, tokenString }: Props) {
       </aside>
 
       {/* posts */}
-      <section className="max-h-screen overflow-y-scroll py-16">
+      <section className="max-h-screen overflow-y-scroll py-16 scrollbar-custom">
         <PostSection token={token} tokenString={tokenString} />
       </section>
       <aside className="overflow-hidden py-16">
