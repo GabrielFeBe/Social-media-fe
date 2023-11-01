@@ -1,9 +1,9 @@
 'use server'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 // import Image from 'next/image'
-import PostSection from './PostSection'
-import PersonMayKnow from './PersonMayKnow'
-import ProfileAside from './ProfileAside'
+import PostSection from './posts/PostSection'
+import PersonMayKnow from './friends/PersonMayKnow'
+import ProfileAside from './profile/ProfileAside'
 
 interface Props {
   token: UserIDJwtPayload

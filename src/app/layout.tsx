@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import { getUser } from '@/lib/auth'
 import { cookies } from 'next/headers'
 import { UserIDJwtPayload } from 'jsonwebtoken'
-import FriendsRequest from './components/FriendsRequest'
+import FriendsRequest from './components/friends/FriendsRequest'
 import { MyContextProvider } from '@/context/Profile.context'
 import { EdgeStoreProvider } from '../lib/edgestore'
 const inter = Inter({ subsets: ['latin'] })

@@ -1,7 +1,7 @@
 import { getUser } from '@/lib/auth'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import HomePageAccount from './components/HomePageAccount'
-import LoginHome from './components/LoginHome'
+import LoginHome from './components/profile/LoginHome'
 import { cookies } from 'next/headers'
 
 export default async function Home() {

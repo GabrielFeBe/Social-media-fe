@@ -4,7 +4,7 @@ import { getUser } from '@/lib/auth'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { cookies } from 'next/headers'
 import React from 'react'
-import Friends from '@/app/components/Friends'
+import Friends from '@/app/components/friends/Friends'
 import ErrorComponent from '@/app/components/ErrorComponent'
 
 export default async function page({ params }: { params: { id: string } }) {

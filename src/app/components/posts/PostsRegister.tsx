@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react'
-import { SingleImageDropzone } from './MeadiaPicker'
+import { SingleImageDropzone } from '../MeadiaPicker'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { useEdgeStore } from '@/lib/edgestore'
 import { api } from '@/lib/api'

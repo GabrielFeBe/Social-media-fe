@@ -4,7 +4,7 @@ import { UserIDJwtPayload } from 'jsonwebtoken'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { cookies } from 'next/headers'
-import PostSection from '@/app/components/PostSection'
+import PostSection from '@/app/components/posts/PostSection'
 import Link from 'next/link'
 import Image from 'next/image'
 dayjs.extend(relativeTime)
@@ -22,14 +22,6 @@ interface User {
     email: string
     friendRequest: { id: number }
   }
-}
-interface Posts {
-  id: number
-  userId: number
-  postTitle: string
-  postDescription: string
-  isPublic: true
-  postDate: Date
 }
 export default async function profile({ params }: { params: { id: string } }) {
   let token: null | UserIDJwtPayload = null

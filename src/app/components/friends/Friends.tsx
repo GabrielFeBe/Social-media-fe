@@ -6,7 +6,7 @@ import { UserIDJwtPayload } from 'jsonwebtoken'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { ButtonFriendRequest } from './ButtonFriendRequest'
-import ErrorComponent from './ErrorComponent'
+import ErrorComponent from '../ErrorComponent'
 import Image from 'next/image'
 
 interface Props {

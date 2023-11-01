@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { ButtonFriendRequest } from './ButtonFriendRequest'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { io } from 'socket.io-client'
-import ErrorComponent from './ErrorComponent'
+import ErrorComponent from '../ErrorComponent'
 import Image from 'next/image'
 
 interface Props {

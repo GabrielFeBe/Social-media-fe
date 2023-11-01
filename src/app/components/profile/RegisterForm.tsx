@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import UserFriend from '@/interfaces/Friend'
 import Cookies from 'js-cookie'
 import { useEdgeStore } from '@/lib/edgestore'
-import { SingleImageDropzone } from './MeadiaPicker'
+import { SingleImageDropzone } from '../MeadiaPicker'
 
 interface userCreated {
   userCreated: Partial<UserFriend>
@@ -80,7 +80,9 @@ export default function RegisterForm() {
             className="p-1 rounded-md w-full"
           />
         </label>
+
         <SingleImageDropzone
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           width={'100%' as any}
           height={200}
           value={file}

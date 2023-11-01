@@ -5,7 +5,7 @@ import { api } from '@/lib/api'
 import UserFriend from '@/interfaces/Friend'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { useMyContext } from '@/context/Profile.context'
-import ErrorComponent from './ErrorComponent'
+import ErrorComponent from '../ErrorComponent'
 import Image from 'next/image'
 
 interface Props {

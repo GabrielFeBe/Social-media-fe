@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { api } from '@/lib/api'
 import PostComponent from './PostComponent'
-import ErrorComponent from './ErrorComponent'
+import ErrorComponent from '../ErrorComponent'
 import PostsRegister from './PostsRegister'
 import { usePathname } from 'next/navigation'
 

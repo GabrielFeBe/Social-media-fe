@@ -4,7 +4,7 @@ import Comment from './Comment'
 import CommentPerson from './CommentPerson'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { Posts } from '@/interfaces/Posts'
-import PersonBlock from './PersonBlock'
+import PersonBlock from '../profile/PersonBlock'
 import Image from 'next/image'
 
 interface Props {
