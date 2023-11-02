@@ -47,7 +47,7 @@ export default function FriendsDropDown({
       <button
         className="relative"
         ref={botaoRef}
-        onClick={() => {
+        onClick={async () => {
           setIsVisible(!isVisible)
           if (setNotification) {
             setNotification(0)
@@ -63,7 +63,7 @@ export default function FriendsDropDown({
         ) : null}
       </button>
       {isVisible && hasChildren ? (
-        <div className="absolute bg-gray-500 right-0 hover:bg-gray-600 hover:text-gray-800 p-3 cursor-pointer">
+        <div className="absolute bg-gray-500 right-0 cursor-pointer">
           {children}
         </div>
       ) : null}

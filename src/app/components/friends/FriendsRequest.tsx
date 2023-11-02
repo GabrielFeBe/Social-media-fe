@@ -24,6 +24,7 @@ interface Requested {
       name: string
       email: string
       requested: Requester[]
+      notifications: { id: number; userId: number }[]
     }
   }
 }
@@ -65,10 +66,11 @@ export default function FriendsRequest({ token, tokenString }: Props) {
       if (!token) return null
       const responseUF: Requested = await api.get(`/user/${token.id}`)
       const requesteds = responseUF.data.user.requested || []
+      setNotification(responseUF.data.user.notifications.length)
       setRequesteds(requesteds)
     }
     fetchFriends()
-  }, [token, notification])
+  }, [token])
   return (
     <div className="flex justify-between flex-1 bg-gray-500 fixed min-w-full top-0 left-0 h-8 items-center">
       <Link href="/">
@@ -84,8 +86,14 @@ export default function FriendsRequest({ token, tokenString }: Props) {
             {requesteds.map((request) => {
               const { id } = request.friendRequest
               return (
-                <div key={request.email}>
-                  <Link href={`/profile/${request.id}`}>
+                <div
+                  key={request.email}
+                  className="hover:bg-gray-600 w-full h-full p-3"
+                >
+                  <Link
+                    href={`/profile/${request.id}`}
+                    className="hover:text-gray-800 "
+                  >
                     <Image
                       src={request.profilePicture}
                       alt={`Profile of ${request.name}`}
@@ -101,7 +109,12 @@ export default function FriendsRequest({ token, tokenString }: Props) {
             })}
           </FriendsDropDown>
           <FriendsDropDown title={ArrowBigDown}>
-            <a href="/api/auth/logout">Logout</a>
+            <a
+              href="/api/auth/logout"
+              className="hover:text-gray-800 hover:bg-gray-600 bg-gray-500 h-12 w-28 flex items-center justify-center"
+            >
+              Logout
+            </a>
           </FriendsDropDown>
         </nav>
       ) : null}
