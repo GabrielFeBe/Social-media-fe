@@ -1,4 +1,5 @@
 'use client'
+import { api } from '@/lib/api'
 import React, {
   Dispatch,
   ReactNode,
@@ -13,6 +14,7 @@ interface Props {
   title: React.ComponentType
   notification?: number
   setNotification?: Dispatch<SetStateAction<number>>
+  idToken: number
 }
 
 export default function FriendsDropDown({
@@ -20,6 +22,7 @@ export default function FriendsDropDown({
   title: Title,
   notification = 0,
   setNotification,
+  idToken,
 }: Props) {
   const [isVisible, setIsVisible] = useState(false)
 
@@ -49,7 +52,8 @@ export default function FriendsDropDown({
         ref={botaoRef}
         onClick={async () => {
           setIsVisible(!isVisible)
-          if (setNotification) {
+          if (setNotification && notification > 0) {
+            await api.delete(`/user/notifications/${idToken}`)
             setNotification(0)
           }
         }}

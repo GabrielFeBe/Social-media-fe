@@ -82,6 +82,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
             title={User2}
             notification={notification}
             setNotification={setNotification}
+            idToken={token.id}
           >
             {requesteds.map((request) => {
               const { id } = request.friendRequest
@@ -108,7 +109,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
               )
             })}
           </FriendsDropDown>
-          <FriendsDropDown title={ArrowBigDown}>
+          <FriendsDropDown title={ArrowBigDown} idToken={token.id}>
             <a
               href="/api/auth/logout"
               className="hover:text-gray-800 hover:bg-gray-600 bg-gray-500 h-12 w-28 flex items-center justify-center"
