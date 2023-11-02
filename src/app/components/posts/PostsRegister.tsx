@@ -23,6 +23,7 @@ export default function PostsRegister({
     let imageString = ''
     event.preventDefault()
     const makeForm = new FormData(event.currentTarget)
+    event.currentTarget.reset()
     if (file) {
       const resImg = await edgestore.publicFiles.upload({
         file,
@@ -30,6 +31,7 @@ export default function PostsRegister({
       })
       imageString = resImg.url
     }
+
     await api.post(
       '/posts',
       {
@@ -45,14 +47,11 @@ export default function PostsRegister({
         },
       },
     )
-    // clean the form
-    event.currentTarget.reset()
-    // then reset the file state, and update the component
     setFile(undefined)
     setUpdate(!update)
   }
   return (
-    <form onSubmit={postCreation} className="mb-10">
+    <form onSubmit={postCreation} className="mb-10" id="resetForm">
       <input
         type="text"
         placeholder="Post Title"

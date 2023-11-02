@@ -70,7 +70,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
       setRequesteds(requesteds)
     }
     fetchFriends()
-  }, [token])
+  }, [token, notification])
   return (
     <div className="flex justify-between flex-1 bg-gray-500 fixed min-w-full top-0 left-0 h-8 items-center">
       <Link href="/">

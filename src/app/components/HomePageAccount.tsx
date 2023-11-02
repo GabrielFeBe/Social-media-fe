@@ -1,4 +1,3 @@
-'use server'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 // import Image from 'next/image'
 import PostSection from './posts/PostSection'
@@ -10,7 +9,7 @@ interface Props {
   tokenString: string
 }
 
-export default async function HomePageAccount({ token, tokenString }: Props) {
+export default function HomePageAccount({ token, tokenString }: Props) {
   return (
     <div className="grid grid-cols-3  overflow-hidden">
       <aside className="relativ items-start justify-between overflow-hidden px-28 py-16 h-full ">

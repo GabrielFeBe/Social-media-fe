@@ -77,7 +77,7 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
         return (
           <div
             key={person.email}
-            className="m-auto w-fit flex items-center justify-center gap-2"
+            className="m-auto flex items-center justify-center gap-2 w-[250px]"
           >
             <Link href={`/profile/${person.id}`}>
               <Image
@@ -88,7 +88,7 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
                 alt={`profile of ${person.name}`}
               ></Image>
             </Link>
-            <div className="flex flex-col justify-between items-center">
+            <div className="flex flex-col justify-between items-center w-[140px]">
               <Link
                 className="hover:text-gray-900 "
                 href={`/profile/${person.id}`}
