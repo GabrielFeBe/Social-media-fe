@@ -19,6 +19,7 @@ Project Description: (Briefly describe your project)
 - [Axios](https://axios-http.com/) - Promise-based HTTP client for making requests.
 - [Cookies](https://github.com/js-cookie/js-cookie) - A JavaScript API for working with cookies.
 - [Socket.io](https://socket.io/) - A real-time, bidirectional communication library.
+- [Edgestore](https://edgestore.app/) - A database for the decentralized web.
 
 ## Requirements
 
@@ -58,6 +59,11 @@ npm run dev
 - **Docker:** There's not a Dockerfile yet, nor a docker-compose.yml file. But it's in the roadmap.
 - **Environment Variables:** There's a .env.example file with all the environment variables needed to run the project. You can create a .env file and copy the variables from the .env.example file and fill them with your own values.
 - **Backend:** The backend is not hosted, so you'll need to run it locally. You can find the backend repository [here](https://github.com/GabrielFeBe/Social-media)
+
+## Edgestore
+
+- **Edgestore:** This project uses Edgestore as a database. You can find the documentation [here](https://docs.edgestore.app/). You can create a free account and use it for development purposes. You'll need to create a database and a collection. Then you'll need to create a .env file and add the following variables:
+- The keys are the same as the ones in the .env.example file, but you'll need to add your own values.
 
 ## License
 
