@@ -6,6 +6,7 @@ import { UserIDJwtPayload } from 'jsonwebtoken'
 import { Posts } from '@/interfaces/Posts'
 import PersonBlock from '../profile/PersonBlock'
 import Image from 'next/image'
+import { api } from '@/lib/api'
 
 interface Props {
   tokenString: string
@@ -23,6 +24,31 @@ export default function PostComponent({
   update,
 }: Props) {
   const [showMore, setShowMore] = useState(false)
+  async function LikePost() {
+    await api.post(
+      '/likes/posts',
+      {
+        postId: post.id,
+        userId: token.id,
+      },
+      {
+        headers: {
+          Authorization: tokenString,
+        },
+      },
+    )
+    setUpdate(!update)
+  }
+
+  async function UnlikePost() {
+    await api.delete(`/likes/posts/${post.id}`, {
+      headers: {
+        Authorization: tokenString,
+      },
+    })
+    setUpdate(!update)
+  }
+
   return (
     <>
       {/* person profile */}
@@ -43,6 +69,24 @@ export default function PostComponent({
             height={1080}
             alt={post.postTitle}
           />
+          <div className=" border-2 justify-between items-center h-4 flex flex-1">
+            {post.usersWichLiked.some((user) => +user.userId === +token.id) ? (
+              <button className="" onClick={UnlikePost}>
+                Unlike
+              </button>
+            ) : (
+              <button className="" onClick={LikePost}>
+                Like
+              </button>
+            )}
+            <span>
+              {`
+              ${post.usersWichLiked.length} ${
+                post.usersWichLiked.length === 1 ? 'like' : 'likes'
+              }
+              `}
+            </span>
+          </div>
           <p
             className={`break-words whitespace-break-spaces ${
               !showMore

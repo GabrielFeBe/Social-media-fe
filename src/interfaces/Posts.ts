@@ -1,6 +1,11 @@
 import PostComments from './Comments'
 import { Friends } from './Friend'
 
+interface usersWichLiked {
+  userId: number
+  user: Friends
+}
+
 export interface Posts {
   id?: number
   postTitle: string
@@ -11,4 +16,5 @@ export interface Posts {
   postPicture: string
   user: Friends
   comments: PostComments[]
+  usersWichLiked: usersWichLiked[]
 }

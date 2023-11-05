@@ -18,3 +18,12 @@ export default interface UserFriend {
   token?: string
   friends: Friends[]
 }
+
+export interface User {
+  id?: number
+  email: string
+  name: string
+  description: string
+  profilePicture: string
+  local: string
+}

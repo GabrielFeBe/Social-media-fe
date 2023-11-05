@@ -48,7 +48,7 @@ export default function PostSection({ tokenString, token, id }: Props) {
     }
     postsFetch()
   }, [update, tokenString, id])
-
+  console.log(posts)
   if (postsError) {
     return (
       <ErrorComponent errorText="Some error ocurred within the server connection" />
