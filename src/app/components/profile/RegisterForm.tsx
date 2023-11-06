@@ -6,6 +6,11 @@ import UserFriend from '@/interfaces/Friend'
 import Cookies from 'js-cookie'
 import { useEdgeStore } from '@/lib/edgestore'
 import { SingleImageDropzone } from '../MeadiaPicker'
+import Email from '../registerOrEditing/Email'
+import Password from '../registerOrEditing/Password'
+import Name from '../registerOrEditing/Name'
+import Description from '../registerOrEditing/Description'
+import Local from '../registerOrEditing/Local'
 
 interface userCreated {
   userCreated: Partial<UserFriend>
@@ -50,36 +55,9 @@ export default function RegisterForm() {
         className="flex flex-col gap-4  w-[350px] p-4 border-2 border-gray-700 rounded-md h-[720px]"
         onSubmit={handleSubmit}
       >
-        <label htmlFor="email" className="flex flex-col items-center gap-1">
-          <span>Email</span>
-          <input
-            type="text"
-            id="email"
-            placeholder="Email"
-            name="email"
-            className="p-1 rounded-md w-full"
-          />
-        </label>
-        <label htmlFor="password" className="flex flex-col items-center gap-1">
-          <span>Password</span>
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            id="password"
-            className="p-1 rounded-md w-full"
-          />
-        </label>
-        <label htmlFor="name" className="flex flex-col items-center gap-1">
-          <span>Name</span>
-          <input
-            id="name"
-            type="text"
-            placeholder="Name"
-            name="nameAndLastname"
-            className="p-1 rounded-md w-full"
-          />
-        </label>
+        <Email />
+        <Password />
+        <Name />
 
         <SingleImageDropzone
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -97,22 +75,8 @@ export default function RegisterForm() {
             style={{ width: `${progress}%` }}
           ></div>
         </div>
-        <textarea
-          name="description"
-          id=""
-          className="resize-none h-[88px] rounded-md"
-          placeholder="Put here a description about yourself, things you like to do, places you like to be and etc..."
-        ></textarea>
-        <label htmlFor="local" className="flex flex-col items-center gap-1">
-          <span>Local</span>
-          <input
-            type="text"
-            id="local"
-            placeholder="Place that you live"
-            name="local"
-            className="p-1 rounded-md w-full"
-          />
-        </label>
+        <Description />
+        <Local />
         <button className="text-gray-200 bg-black rounded-full hover:bg-gray-800 p-1 w-32 self-center">
           Registrar
         </button>

@@ -69,17 +69,23 @@ export default function PostComponent({
             height={1080}
             alt={post.postTitle}
           />
-          <div className=" border-2 justify-between items-center h-4 flex flex-1">
+          <div className=" border-b-2 border-gray-600 justify-between items-center h-6 flex  w-5/6 m-auto">
             {post.usersWichLiked.some((user) => +user.userId === +token.id) ? (
-              <button className="" onClick={UnlikePost}>
-                Unlike
+              <button
+                className="text-blue-600 hover:text-blue-500"
+                onClick={UnlikePost}
+              >
+                Dislike
               </button>
             ) : (
-              <button className="" onClick={LikePost}>
+              <button
+                className="text-blue-600 hover:text-blue-500"
+                onClick={LikePost}
+              >
                 Like
               </button>
             )}
-            <span>
+            <span className="text-blue-600">
               {`
               ${post.usersWichLiked.length} ${
                 post.usersWichLiked.length === 1 ? 'like' : 'likes'

@@ -116,6 +116,19 @@ export default function FriendsRequest({ token, tokenString }: Props) {
             >
               Logout
             </a>
+            <Link
+              href={`/profile/${token.id}`}
+              className="hover:text-gray-800 hover:bg-gray-600 bg-gray-500 h-12 w-28 flex items-center justify-center"
+            >
+              Profile
+            </Link>
+            <Link
+              href={`/profile/${token.id}/editing
+              `}
+              className="hover:text-gray-800 hover:bg-gray-600 bg-gray-500 h-12 w-28 flex items-center justify-center"
+            >
+              Edit Profile
+            </Link>
           </FriendsDropDown>
         </nav>
       ) : null}

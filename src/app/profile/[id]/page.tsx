@@ -7,22 +7,9 @@ import { cookies } from 'next/headers'
 import PostSection from '@/app/components/posts/PostSection'
 import Link from 'next/link'
 import Image from 'next/image'
+import { UserById } from '@/interfaces/Friend'
 dayjs.extend(relativeTime)
 
-interface User {
-  id: number
-  email: string
-  profilePicture: string
-  local: string
-  description: string
-  name: string
-  requested: {
-    id: number
-    name: string
-    email: string
-    friendRequest: { id: number }
-  }
-}
 export default async function profile({ params }: { params: { id: string } }) {
   let token: null | UserIDJwtPayload = null
   try {
@@ -37,7 +24,7 @@ export default async function profile({ params }: { params: { id: string } }) {
   if (isNaN(+params.id)) return <h1>Id Must be a number</h1>
   const stringToken = cookies().get('token')?.value
   const responseU = await api.get(`/user/${params.id}`)
-  const user: User = responseU.data.user
+  const user: UserById = responseU.data.user
 
   return (
     <main className="grid grid-cols-3 gap-5 min-h-screen bg-gray-400">
