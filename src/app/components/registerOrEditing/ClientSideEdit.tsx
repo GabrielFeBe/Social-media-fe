@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import Button from './Button'
 import ImageFile from './ImageFile'
 import { useEdgeStore } from '@/lib/edgestore'
+import { api } from '@/lib/api'
 
 interface Props {
   user: UserById
@@ -19,7 +20,7 @@ interface Props {
 export default function ClientSideEditing({ user, stringToken }: Props) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState<string>()
   const [local, setLocal] = useState('')
   const [description, setDescription] = useState('')
   const [file, setFile] = useState<File | string>()
@@ -37,6 +38,25 @@ export default function ClientSideEditing({ user, stringToken }: Props) {
   }, [user])
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    let profilePicture = typeof file === 'string' ? file : ''
+    if (typeof file !== 'string' && file) {
+      const resImg = await edgestore.publicFiles.upload({
+        file,
+        // onProgressChange: (progress) => {
+        //   setProgress(progress)
+        // },
+        options: {},
+      })
+      profilePicture = resImg.url
+    }
+    await api.patch(`/user/${user.id}`, {
+      name,
+      email,
+      password,
+      local,
+      description,
+      profilePicture,
+    })
     router.push('/')
   }
   return (

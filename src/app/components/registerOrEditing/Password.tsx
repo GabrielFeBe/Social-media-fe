@@ -1,6 +1,6 @@
 interface Props {
-  setPassword?: React.Dispatch<React.SetStateAction<string>>
-  password?: string
+  setPassword?: React.Dispatch<React.SetStateAction<string | undefined>>
+  password?: string | undefined
 }
 
 export default function Password({ setPassword, password }: Props) {
