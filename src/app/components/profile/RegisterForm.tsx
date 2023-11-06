@@ -11,6 +11,7 @@ import Password from '../registerOrEditing/Password'
 import Name from '../registerOrEditing/Name'
 import Description from '../registerOrEditing/Description'
 import Local from '../registerOrEditing/Local'
+import Button from '../registerOrEditing/Button'
 
 interface userCreated {
   userCreated: Partial<UserFriend>
@@ -46,6 +47,7 @@ export default function RegisterForm() {
     const user: userCreated = response.data
     Cookies.set('token', user.userCreated.token as string)
     router.push('/')
+    router.refresh()
   }
 
   return (
@@ -77,9 +79,7 @@ export default function RegisterForm() {
         </div>
         <Description />
         <Local />
-        <button className="text-gray-200 bg-black rounded-full hover:bg-gray-800 p-1 w-32 self-center">
-          Registrar
-        </button>
+        <Button text="Register" />
       </form>
     </main>
   )

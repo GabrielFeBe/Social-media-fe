@@ -3,6 +3,7 @@ import { api } from '@/lib/api'
 import React, { FormEvent, useState } from 'react'
 import Cookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function LoginHome() {
   const [loginError, setLoginError] = useState(false)
@@ -58,12 +59,9 @@ export default function LoginHome() {
         >
           Entrar
         </button>
-        <button
-          onClick={() => router.push('/register')}
-          className="hover:text-gray-800"
-        >
+        <Link href={'/register'} className="hover:text-gray-800 text-center">
           Criar nova conta
-        </button>
+        </Link>
         {loginError && (
           <p className="text-red-600 absolute bottom-0 left-1/4">
             Erro ao fazer login

@@ -28,7 +28,7 @@ export default async function profileEdit({
 
   return (
     <main className=" min-h-screen bg-gray-400 w-full flex items-center justify-center">
-      <ClientSideEditing user={user} />
+      <ClientSideEditing user={user} stringToken={stringToken as string} />
     </main>
   )
 }
