@@ -49,25 +49,42 @@ export default function ClientSideEditing({ user, stringToken }: Props) {
       })
       profilePicture = resImg.url
     }
-    await api.patch(`/user/${user.id}`, {
-      name,
-      email,
-      password,
-      local,
-      description,
-      profilePicture,
-    })
+    await api.patch(
+      `/user/${user.id}`,
+      {
+        name,
+        email,
+        password,
+        local,
+        description,
+        profilePicture,
+      },
+      {
+        headers: {
+          Authorization: stringToken,
+        },
+      },
+    )
     router.push('/')
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <Email setEmail={setEmail} email={email} />
-      <Password setPassword={setPassword} password={password} />
-      <Name setName={setName} name={name} />
-      <ImageFile setFile={setFile} file={file} />
-      <Description description={description} setDescription={setDescription} />
-      <Local local={local} setLocal={setLocal} />
-      <Button text="Edit" />
-    </form>
+    <>
+      <h1 className="text-3xl font-bold text-gray-700 pb-4">Edit</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4  w-[350px] p-4 border-2 border-gray-700 rounded-md h-[720px]"
+      >
+        <Email setEmail={setEmail} email={email} />
+        <Password setPassword={setPassword} password={password} />
+        <Name setName={setName} name={name} />
+        <ImageFile setFile={setFile} file={file} />
+        <Description
+          description={description}
+          setDescription={setDescription}
+        />
+        <Local local={local} setLocal={setLocal} />
+        <Button text="Edit" />
+      </form>
+    </>
   )
 }

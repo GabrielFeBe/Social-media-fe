@@ -27,7 +27,7 @@ export default async function profileEdit({
   const user: UserById = responseU.data.user
 
   return (
-    <main className=" min-h-screen bg-gray-400 w-full flex items-center justify-center">
+    <main className=" min-h-screen bg-gray-400 w-full flex items-center justify-center flex-col">
       <ClientSideEditing user={user} stringToken={stringToken as string} />
     </main>
   )
