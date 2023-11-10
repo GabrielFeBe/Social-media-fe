@@ -5,13 +5,13 @@ import { useRouter } from 'next/navigation'
 import UserFriend from '@/interfaces/Friend'
 import Cookies from 'js-cookie'
 import { useEdgeStore } from '@/lib/edgestore'
-import { SingleImageDropzone } from '../MeadiaPicker'
 import Email from '../registerOrEditing/Email'
 import Password from '../registerOrEditing/Password'
 import Name from '../registerOrEditing/Name'
 import Description from '../registerOrEditing/Description'
 import Local from '../registerOrEditing/Local'
 import Button from '../registerOrEditing/Button'
+import ImageFile from '../registerOrEditing/ImageFile'
 
 interface userCreated {
   userCreated: Partial<UserFriend>
@@ -61,16 +61,14 @@ export default function RegisterForm() {
         <Password />
         <Name />
 
-        <SingleImageDropzone
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          width={'100%' as any}
-          height={200}
-          value={file}
-          onChange={(file) => {
-            setFile(file)
-          }}
-          className="bg-black"
-        ></SingleImageDropzone>
+        <ImageFile
+          setFile={
+            setFile as React.Dispatch<
+              React.SetStateAction<File | undefined | string>
+            >
+          }
+          file={file}
+        />
         <div className="h-2 w-full bg-black border rounded overflow-hidden ">
           <div
             className="h-full bg-white transition-all duration-500"

@@ -3,6 +3,7 @@ import { UserIDJwtPayload } from 'jsonwebtoken'
 import PostSection from './posts/PostSection'
 import PersonMayKnow from './friends/PersonMayKnow'
 import ProfileAside from './profile/ProfileAside'
+import PostOverView from './PostOverview'
 
 interface Props {
   token: UserIDJwtPayload
@@ -12,6 +13,7 @@ interface Props {
 export default function HomePageAccount({ token, tokenString }: Props) {
   return (
     <div className="grid grid-cols-3  overflow-hidden">
+      <PostOverView />
       <aside className="relativ items-start justify-between overflow-hidden px-28 py-16 h-full ">
         <ProfileAside token={token} tokenString={tokenString} />
       </aside>
