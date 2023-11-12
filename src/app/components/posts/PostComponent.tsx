@@ -25,7 +25,7 @@ export default function PostComponent({
   update,
 }: Props) {
   const [showMore, setShowMore] = useState(false)
-  const { addPosts } = useMyPostContext()
+  const { addPosts, posts } = useMyPostContext()
   async function LikePost() {
     await api.post(
       '/likes/posts',
@@ -50,7 +50,9 @@ export default function PostComponent({
     })
     setUpdate(!update)
   }
-
+  const doShowComments = () => {
+    return post.comments.length < 3 || posts
+  }
   return (
     <>
       {/* person profile */}
@@ -118,26 +120,29 @@ export default function PostComponent({
       </div>
       {/* actual post */}
       {/* Comments */}
-      {post.comments.map((comment) => {
-        return (
-          <div key={comment.comment}>
-            {/* eslint-disable-next-line */}
+      {doShowComments() &&
+        post.comments.map((comment) => {
+          return (
+            <div key={comment.comment}>
+              {/* eslint-disable-next-line */}
          <CommentPerson comment={comment.comment}
-              image={comment.user.profilePicture}
-              name={comment.user.name}
-              timePost={comment.commentDate}
-              id={comment.user.id as number}
-            ></CommentPerson>
-          </div>
-        )
-      })}
-      <Comment
-        id={post.id as number}
-        tokenString={tokenString}
-        userId={token.id}
-        update={update}
-        setUpdate={setUpdate}
-      ></Comment>
+                image={comment.user.profilePicture}
+                name={comment.user.name}
+                timePost={comment.commentDate}
+                id={comment.user.id as number}
+              ></CommentPerson>
+            </div>
+          )
+        })}
+      {doShowComments() && (
+        <Comment
+          id={post.id as number}
+          tokenString={tokenString}
+          userId={token.id}
+          update={update}
+          setUpdate={setUpdate}
+        />
+      )}
     </>
   )
 }

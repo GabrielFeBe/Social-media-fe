@@ -5,7 +5,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react'
 // Define the type for your context data
 type MyContextData = {
   posts: Posts | undefined
-  addPosts: (item: Posts) => void
+  addPosts: (item?: Posts) => void
 }
 
 // Create a context
@@ -21,7 +21,7 @@ export const MyContextProviderPosts: React.FC<MyContextProviderProps> = ({
 }) => {
   const [posts, setPosts] = useState<Posts>()
 
-  const addPosts = (item: Posts | undefined) => {
+  const addPosts = (item?: Posts | undefined) => {
     setPosts(item)
   }
 

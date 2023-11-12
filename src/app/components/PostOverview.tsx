@@ -1,8 +1,9 @@
 'use client'
 import { Posts } from '@/interfaces/Posts'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import PostComponent from './posts/PostComponent'
 import { UserIDJwtPayload } from 'jsonwebtoken'
+import { useMyPostContext } from '@/context/PostSect'
 
 interface Props {
   post: Posts
@@ -12,6 +13,7 @@ interface Props {
 
 export default function PostOverView({ post, tokenString, token }: Props) {
   const [update, setUpdate] = useState(false)
+  const { addPosts } = useMyPostContext()
   useEffect(() => {
     // ComponentDidMount
     document.body.style.overflow = 'hidden'
@@ -21,9 +23,33 @@ export default function PostOverView({ post, tokenString, token }: Props) {
       document.body.style.overflow = 'auto'
     }
   }, [])
+  const botaoRef = useRef<HTMLButtonElement & HTMLDivElement>(null)
+
   return (
-    <main role="presentation" className="overflowImage">
-      <div className="w-1/2 h-1/3 ">
+    <main
+      className="overflowImage"
+      onClick={(event) => {
+        if (
+          botaoRef.current &&
+          !botaoRef.current.contains(event.target as Node)
+        ) {
+          addPosts()
+        }
+      }}
+    >
+      <button
+        className="absolute top-2 text-red-600 right-2"
+        onClick={() => {
+          addPosts()
+        }}
+      >
+        X
+      </button>
+      <div
+        className="w-1/2 h-1/3"
+        onClick={() => console.log('alo')}
+        ref={botaoRef}
+      >
         <PostComponent
           post={post}
           setUpdate={setUpdate}
