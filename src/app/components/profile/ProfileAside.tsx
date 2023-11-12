@@ -31,7 +31,9 @@ export default function ProfileAside({ token, tokenString }: Props) {
         setError(true)
       }
     }
-    fetchUser()
+    if (data === null) {
+      fetchUser()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   if (user === null) return <></>

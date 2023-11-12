@@ -41,3 +41,15 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-track-piece {
   background-color: #6b7280;
 }
+
+.overflowImage{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+  }

@@ -7,6 +7,7 @@ import { Posts } from '@/interfaces/Posts'
 import PersonBlock from '../profile/PersonBlock'
 import Image from 'next/image'
 import { api } from '@/lib/api'
+import { useMyPostContext } from '@/context/PostSect'
 
 interface Props {
   tokenString: string
@@ -24,6 +25,7 @@ export default function PostComponent({
   update,
 }: Props) {
   const [showMore, setShowMore] = useState(false)
+  const { addPosts } = useMyPostContext()
   async function LikePost() {
     await api.post(
       '/likes/posts',
@@ -64,10 +66,14 @@ export default function PostComponent({
         <div className="m-3">
           <h4>{post.postTitle}</h4>
           <Image
+            className="cursor-pointer"
             src={post.postPicture}
             width={1080}
             height={1080}
             alt={post.postTitle}
+            onClick={() => {
+              addPosts(post)
+            }}
           />
           <div className=" border-b-2 border-gray-600 justify-between items-center h-6 flex  w-5/6 m-auto">
             {post.usersWichLiked.some((user) => +user.userId === +token.id) ? (

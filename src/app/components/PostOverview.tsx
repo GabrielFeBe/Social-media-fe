@@ -1,12 +1,17 @@
 'use client'
 import { Posts } from '@/interfaces/Posts'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import PostComponent from './posts/PostComponent'
+import { UserIDJwtPayload } from 'jsonwebtoken'
 
 interface Props {
-  post?: Posts
+  post: Posts
+  token: UserIDJwtPayload
+  tokenString: string
 }
 
-export default function PostOverView({ post }: Props) {
+export default function PostOverView({ post, tokenString, token }: Props) {
+  const [update, setUpdate] = useState(false)
   useEffect(() => {
     // ComponentDidMount
     document.body.style.overflow = 'hidden'
@@ -17,8 +22,16 @@ export default function PostOverView({ post }: Props) {
     }
   }, [])
   return (
-    <main className="min-h-screen w-full fixed bg-black opacity-30 overflow-hidden top-0 left-0">
-      test
+    <main role="presentation" className="overflowImage">
+      <div className="w-1/2 h-1/3 ">
+        <PostComponent
+          post={post}
+          setUpdate={setUpdate}
+          update={update}
+          token={token}
+          tokenString={tokenString}
+        />
+      </div>
     </main>
   )
 }

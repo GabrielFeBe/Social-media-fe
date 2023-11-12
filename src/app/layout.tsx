@@ -7,6 +7,7 @@ import { UserIDJwtPayload } from 'jsonwebtoken'
 import FriendsRequest from './components/friends/FriendsRequest'
 import { MyContextProvider } from '@/context/Profile.context'
 import { EdgeStoreProvider } from '../lib/edgestore'
+import { MyContextProviderPosts } from '@/context/PostSect'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -34,8 +35,11 @@ export default function RootLayout({
           {/* @ts-expect-error next new feature */}
           <FriendsRequest token={token} tokenString={stringToken} />
         </header>
+
         <EdgeStoreProvider>
-          <MyContextProvider>{children}</MyContextProvider>
+          <MyContextProviderPosts>
+            <MyContextProvider>{children}</MyContextProvider>
+          </MyContextProviderPosts>
         </EdgeStoreProvider>
         <footer className="w-full h-[200px] bg-gray-500">
           <div className="flex flex-1 justify-between items-center pt-10 w-1/2 m-auto">
