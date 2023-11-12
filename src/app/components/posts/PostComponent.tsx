@@ -68,7 +68,7 @@ export default function PostComponent({
         <div className="m-3">
           <h4>{post.postTitle}</h4>
           <Image
-            className="cursor-pointer"
+            className={`${!posts && 'cursor-pointer'}`}
             src={post.postPicture}
             width={1080}
             height={1080}

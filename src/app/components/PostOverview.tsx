@@ -46,7 +46,7 @@ export default function PostOverView({ post, tokenString, token }: Props) {
         X
       </button>
       <div
-        className="w-1/2 h-1/3"
+        className="w-1/2 h-3/4 overflow-y-scroll border-2 border-gray-300 rounded-lg shadow-lg p-4"
         onClick={() => console.log('alo')}
         ref={botaoRef}
       >

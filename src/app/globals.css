@@ -51,5 +51,5 @@ body::-webkit-scrollbar-track-piece {
   background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
-  overflow-y: scroll;
+  align-items: center;
   }
