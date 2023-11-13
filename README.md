@@ -1,6 +1,6 @@
 # Social Media - FE
 
-This is a social media project built with Next.js, Tailwind CSS, and Edgestore. It's a work in progress, so there's a lot of things to do. You can find the backend repository [here](https://github.com/GabrielFeBe/Social-media-fe).
+This is a social media project built with Next.js, Tailwind CSS, and Edgestore. It's a work in progress, so there's a lot of things to do. You can find the backend repository [here](https://github.com/GabrielFeBe/Social-media).
 
 ## Table of Contents
 
