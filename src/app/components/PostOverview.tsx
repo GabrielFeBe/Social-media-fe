@@ -13,7 +13,7 @@ interface Props {
 
 export default function PostOverView({ post, tokenString, token }: Props) {
   const [update, setUpdate] = useState(false)
-  const { addPosts } = useMyPostContext()
+  const { addPosts, posts } = useMyPostContext()
   useEffect(() => {
     // ComponentDidMount
     document.body.style.overflow = 'hidden'
@@ -27,7 +27,7 @@ export default function PostOverView({ post, tokenString, token }: Props) {
 
   return (
     <main
-      className="overflowImage"
+      className="overflowImage fl"
       onClick={(event) => {
         if (
           botaoRef.current &&
@@ -46,7 +46,9 @@ export default function PostOverView({ post, tokenString, token }: Props) {
         X
       </button>
       <div
-        className="w-1/2 h-3/4 overflow-y-scroll border-2 border-gray-300 rounded-lg shadow-lg p-4"
+        className={`w-1/2 h-3/4 overflow-y-scroll border-2 border-gray-300 rounded-lg shadow-lg p-4 ${
+          posts ? 'text-white' : ''
+        }`}
         onClick={() => console.log('alo')}
         ref={botaoRef}
       >

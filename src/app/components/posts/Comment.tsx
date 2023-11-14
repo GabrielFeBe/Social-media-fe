@@ -1,4 +1,5 @@
 'use client'
+import { useMyPostContext } from '@/context/PostSect'
 import { api } from '@/lib/api'
 import React, { useState } from 'react'
 
@@ -18,9 +19,10 @@ export default function Comment({
   update,
 }: Props) {
   const [comment, setComment] = useState('')
+  const { posts, addPosts } = useMyPostContext()
   async function makeComment() {
     try {
-      await api.post(
+      const res = await api.post(
         '/comments',
         {
           postId: id,
@@ -33,6 +35,14 @@ export default function Comment({
           },
         },
       )
+      console.log(res)
+      if (posts) {
+        const mockPost = posts
+        const comment = res.data
+        mockPost.comments.push(comment)
+        addPosts(mockPost)
+        setUpdate(!update)
+      }
       setUpdate(!update)
     } catch (err) {
       return null

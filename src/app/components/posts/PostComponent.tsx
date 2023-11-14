@@ -27,7 +27,7 @@ export default function PostComponent({
   const [showMore, setShowMore] = useState(false)
   const { addPosts, posts } = useMyPostContext()
   async function LikePost() {
-    await api.post(
+    const teste = await api.post(
       '/likes/posts',
       {
         postId: post.id,
@@ -39,6 +39,11 @@ export default function PostComponent({
         },
       },
     )
+    if (posts) {
+      const mockPost = posts
+      mockPost.usersWichLiked.push(teste.data)
+      addPosts(mockPost)
+    }
     setUpdate(!update)
   }
 
@@ -48,6 +53,13 @@ export default function PostComponent({
         Authorization: tokenString,
       },
     })
+    if (posts) {
+      const mockPost = posts
+      mockPost.usersWichLiked = mockPost.usersWichLiked.filter(
+        (user) => user.userId !== token.id,
+      )
+      addPosts(mockPost)
+    }
     setUpdate(!update)
   }
   const doShowComments = () => {
