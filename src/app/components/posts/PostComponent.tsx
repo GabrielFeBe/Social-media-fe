@@ -80,7 +80,7 @@ export default function PostComponent({
         <div className="m-3">
           <h4>{post.postTitle}</h4>
           <Image
-            className={`${!posts && 'cursor-pointer'}`}
+            className={`${!posts && 'cursor-pointer'} h-[500px]`}
             src={post.postPicture}
             width={1080}
             height={1080}
@@ -105,6 +105,14 @@ export default function PostComponent({
                 Like
               </button>
             )}
+            <button
+              className="text-blue-600 hover:text-blue-500"
+              onClick={() => {
+                addPosts(post)
+              }}
+            >
+              Comment
+            </button>
             <span className="text-blue-600">
               {`
               ${post.usersWichLiked.length} ${
