@@ -7,13 +7,14 @@ import { UserIDJwtPayload } from 'jsonwebtoken'
 import { useMyContext } from '@/context/Profile.context'
 import ErrorComponent from '../ErrorComponent'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 interface Props {
   token: UserIDJwtPayload
   tokenString: string
 }
-
 export default function ProfileAside({ token, tokenString }: Props) {
+  const path = usePathname()
   const { addData, data } = useMyContext()
   const [error, setError] = useState(false)
   const user = data
@@ -31,11 +32,11 @@ export default function ProfileAside({ token, tokenString }: Props) {
         setError(true)
       }
     }
-    if (data === null) {
+    if (data === null || path === '/') {
       fetchUser()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [path])
   if (user === null) return <></>
   if (error)
     return <ErrorComponent errorText="Erro ao conectar ao servidor..." />
