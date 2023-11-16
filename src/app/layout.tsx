@@ -8,6 +8,7 @@ import FriendsRequest from './components/friends/FriendsRequest'
 import { MyContextProvider } from '@/context/Profile.context'
 import { EdgeStoreProvider } from '../lib/edgestore'
 import { MyContextProviderPosts } from '@/context/PostSect'
+import PostOverView from './components/PostOverview'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -38,6 +39,9 @@ export default function RootLayout({
 
         <EdgeStoreProvider>
           <MyContextProviderPosts>
+            {token && stringToken && (
+              <PostOverView token={token} tokenString={stringToken} />
+            )}
             <MyContextProvider>{children}</MyContextProvider>
           </MyContextProviderPosts>
         </EdgeStoreProvider>

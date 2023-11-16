@@ -8,6 +8,7 @@ export default function Button({ text, disabled = false }: Props) {
     <button
       className="text-gray-200 bg-black rounded-full hover:bg-gray-800 p-1 w-32 self-center"
       disabled={disabled}
+      type="submit"
     >
       {text}
     </button>

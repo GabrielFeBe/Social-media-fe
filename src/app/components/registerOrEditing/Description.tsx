@@ -1,19 +1,35 @@
+import { ChangeEvent, FocusEvent } from 'react'
+
 interface Props {
-  // make a type for a setDescription it's a React Hook
-  setDescription?: React.Dispatch<React.SetStateAction<string>>
-  description?: string
+  setDescription: (event: ChangeEvent<HTMLTextAreaElement>) => void
+  description: string
+  error?: string
+  touched?: boolean
+  Blur: (e: FocusEvent<HTMLTextAreaElement>) => void
 }
-export default function Description({ setDescription, description }: Props) {
+export default function Description({
+  setDescription,
+  description,
+  touched,
+  error,
+  Blur,
+}: Props) {
   return (
-    <textarea
-      name="description"
-      id=""
-      onChange={(e) => {
-        if (setDescription) setDescription(e.target.value)
-      }}
-      value={description}
-      className="resize-none h-[88px] rounded-md"
-      placeholder="Put here a description about yourself, things you like to do, places you like to be and etc..."
-    ></textarea>
+    <div className="relative w-[314px]">
+      <textarea
+        name="description"
+        id=""
+        onChange={setDescription}
+        value={description}
+        className="resize-none h-[88px] rounded-md relative w-full"
+        placeholder="Put here a description about yourself, things you like to do, places you like to be and etc..."
+        onBlur={Blur}
+      ></textarea>
+      {error && touched && (
+        <span className="text-red-500 absolute bottom-[-14px] left-0">
+          {error}
+        </span>
+      )}
+    </div>
   )
 }

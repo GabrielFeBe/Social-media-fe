@@ -1,17 +1,15 @@
 'use client'
-import { Posts } from '@/interfaces/Posts'
 import { useEffect, useRef, useState } from 'react'
 import PostComponent from './posts/PostComponent'
 import { UserIDJwtPayload } from 'jsonwebtoken'
 import { useMyPostContext } from '@/context/PostSect'
 
 interface Props {
-  post: Posts
   token: UserIDJwtPayload
   tokenString: string
 }
 
-export default function PostOverView({ post, tokenString, token }: Props) {
+export default function PostOverView({ tokenString, token }: Props) {
   const [update, setUpdate] = useState(false)
   const { addPosts, posts } = useMyPostContext()
   useEffect(() => {
@@ -24,10 +22,11 @@ export default function PostOverView({ post, tokenString, token }: Props) {
     }
   }, [])
   const botaoRef = useRef<HTMLButtonElement & HTMLDivElement>(null)
+  if (!posts) return null
 
   return (
     <main
-      className="overflowImage fl"
+      className={`${posts ? 'overflowImage' : 'hidden'}`}
       onClick={(event) => {
         if (
           botaoRef.current &&
@@ -53,7 +52,7 @@ export default function PostOverView({ post, tokenString, token }: Props) {
         ref={botaoRef}
       >
         <PostComponent
-          post={post}
+          post={posts}
           setUpdate={setUpdate}
           update={update}
           token={token}
