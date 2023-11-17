@@ -1,20 +1,28 @@
 'use client'
 import { api } from '@/lib/api'
-import React, { FormEvent, useState } from 'react'
+import React, { useState } from 'react'
 import Cookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { Formik } from 'formik'
+import * as Yup from 'yup'
+import Email from '../registerOrEditing/Email'
+import Password from '../registerOrEditing/Password'
 
 export default function LoginHome() {
   const [loginError, setLoginError] = useState(false)
   const router = useRouter()
-  async function submitLogin(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
+  async function submitLogin({
+    email,
+    password,
+  }: {
+    email: string
+    password: string
+  }) {
     try {
       const response = await api.post('/user/login', {
-        password: formData.get('password'),
-        email: formData.get('email'),
+        password,
+        email,
       })
       const { token } = response.data
       Cookie.set('token', token)
@@ -29,45 +37,72 @@ export default function LoginHome() {
   }
   return (
     <main className="flex items-center justify-center min-h-screen">
-      <form
-        className=" flex flex-col w-[300px] h-[350px] justify-between border-2 border-gray-700 rounded-md p-5 relative"
-        onSubmit={submitLogin}
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validationSchema={Yup.object({
+          email: Yup.string()
+            .email('Email inválido')
+            .required('Email obrigatório'),
+          password: Yup.string()
+            .min(8, 'Senha muito curta')
+            .required('Senha obrigatória'),
+        })}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            submitLogin(values)
+            setSubmitting(false)
+          }, 400)
+        }}
       >
-        <label htmlFor="email" className="flex flex-col items-center gap-1">
-          <span>Email</span>
-          <input
-            id="email"
-            type="text"
-            placeholder="Email"
-            name="email"
-            className="p-1 rounded-md"
-          />
-        </label>
-        <label htmlFor="password" className="flex flex-col items-center gap-1">
-          Password
-          <input
-            id="password"
-            type="password"
-            placeholder="Password"
-            name="password"
-            className="p-1 rounded-md"
-          />
-        </label>
-        <button
-          className="rounded-full bg-black text-gray-200 hover:bg-gray-800 p-1 w-32 self-center"
-          type="submit"
-        >
-          Entrar
-        </button>
-        <Link href={'/register'} className="hover:text-gray-800 text-center">
-          Criar nova conta
-        </Link>
-        {loginError && (
-          <p className="text-red-600 absolute bottom-0 left-1/4">
-            Erro ao fazer login
-          </p>
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          /* and other goodies */
+        }) => (
+          <form
+            className=" flex flex-col w-[300px] h-[350px] justify-between border-2 border-gray-700 rounded-md p-5 relative"
+            onSubmit={handleSubmit}
+          >
+            <Email
+              Blur={handleBlur}
+              email={values.email}
+              setEmail={handleChange}
+              touched={touched.email}
+              error={errors.email}
+            />
+            <Password
+              Blur={handleBlur}
+              password={values.password}
+              setPassword={handleChange}
+              error={errors.password}
+              touched={touched.password}
+            />
+            <button
+              className="rounded-full bg-black text-gray-200 hover:bg-gray-800 p-1 w-32 self-center"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Entrar
+            </button>
+            <Link
+              href={'/register'}
+              className="hover:text-gray-800 text-center"
+            >
+              Criar nova conta
+            </Link>
+            {loginError && (
+              <p className="text-red-600 absolute bottom-0 left-1/4">
+                Erro ao fazer login
+              </p>
+            )}
+          </form>
         )}
-      </form>
+      </Formik>
     </main>
   )
 }
