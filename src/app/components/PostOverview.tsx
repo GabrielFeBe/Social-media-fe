@@ -48,7 +48,6 @@ export default function PostOverView({ tokenString, token }: Props) {
         className={`w-1/2 h-3/4 overflow-y-scroll border-2 border-gray-300 rounded-lg shadow-lg p-4 ${
           posts ? 'text-white' : ''
         }`}
-        onClick={() => console.log('alo')}
         ref={botaoRef}
       >
         <PostComponent

@@ -27,7 +27,7 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
     })
 
     socket.on('friendRequest', (data) => {
-      console.log('Friend Request Recebido:', data)
+      console.log('Friend Request Recebido:')
       // Lógica para lidar com notificações de friend request
       if (data.targetId === token.id) {
         setUpdate(!update)
@@ -57,7 +57,6 @@ export default function PersonMayKnow({ tokenString, token }: Props) {
           if (friend.friends.length === 0) return true
           return !friend.friends.some((fr) => fr.id === token.id)
         })
-        console.log(toRequest)
         setList(toRequest)
       } catch (err) {
         setFriendsError(true)

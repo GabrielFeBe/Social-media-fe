@@ -35,7 +35,6 @@ export default function Comment({
           },
         },
       )
-      console.log(res)
       if (posts) {
         const mockPost = posts
         const comment = res.data

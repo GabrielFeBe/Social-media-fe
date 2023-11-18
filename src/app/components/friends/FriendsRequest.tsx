@@ -45,7 +45,7 @@ export default function FriendsRequest({ token, tokenString }: Props) {
     })
 
     socket.on('friendRequest', (data) => {
-      console.log('Friend Request Recebido:', data)
+      console.log('Friend Request Recebido:')
       // Lógica para lidar com notificações de friend request
       if (token && data.targetId === token.id) {
         setNotification(notification + 1)
